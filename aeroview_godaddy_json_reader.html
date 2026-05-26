@@ -4,6 +4,7 @@ AeroView Special Livery Live Radar - GoDaddy JSON Reader Version
 Paste this whole block into a GoDaddy Custom HTML section.
 Replace CONFIG.FEED_URL with your GitHub Pages JSON URL.
 -->
+<meta charset="utf-8">
 <div id="aeroview-live-radar-json"></div>
 <style>
   #aeroview-live-radar-json {
@@ -108,6 +109,90 @@ Replace CONFIG.FEED_URL with your GitHub Pages JSON URL.
     border: 1px solid var(--av-line);
     background: rgba(0,0,0,0.22);
   }
+  #aeroview-live-radar-json .av-controls {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    margin: 0 0 12px;
+  }
+  #aeroview-live-radar-json .av-filter {
+    min-width: 0;
+  }
+  #aeroview-live-radar-json .av-filter select {
+    width: 100%;
+    height: 38px;
+    color: var(--av-text);
+    background: rgba(0,0,0,0.26);
+    border: 1px solid var(--av-line);
+    border-radius: 10px;
+    padding: 0 10px;
+    font: inherit;
+    font-size: 12px;
+    font-weight: 750;
+    outline: none;
+  }
+  #aeroview-live-radar-json .av-filter select:focus {
+    border-color: rgba(97,230,163,0.58);
+    box-shadow: 0 0 0 3px rgba(97,230,163,0.12);
+  }
+  #aeroview-live-radar-json .av-map {
+    position: relative;
+    height: 260px;
+    overflow: hidden;
+    border-radius: 14px;
+    border: 1px solid var(--av-line);
+    background:
+      linear-gradient(180deg, rgba(97, 230, 163, 0.08), transparent 58%),
+      rgba(0,0,0,0.2);
+    margin-bottom: 12px;
+  }
+  #aeroview-live-radar-json .av-map svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  #aeroview-live-radar-json .av-map-grid {
+    stroke: rgba(255,255,255,0.07);
+    stroke-width: 1;
+  }
+  #aeroview-live-radar-json .av-map-land {
+    fill: rgba(255,255,255,0.035);
+    stroke: rgba(255,255,255,0.12);
+    stroke-width: 1;
+  }
+  #aeroview-live-radar-json .av-route-line {
+    stroke: rgba(97,230,163,0.86);
+    stroke-width: 2.4;
+    fill: none;
+    stroke-linecap: round;
+    stroke-dasharray: 7 7;
+  }
+  #aeroview-live-radar-json .av-route-dot {
+    fill: var(--av-gold);
+    stroke: rgba(0,0,0,0.42);
+    stroke-width: 1.5;
+  }
+  #aeroview-live-radar-json .av-route-plane {
+    fill: var(--av-green);
+    stroke: rgba(0,0,0,0.48);
+    stroke-width: 1.4;
+  }
+  #aeroview-live-radar-json .av-map-label {
+    fill: rgba(255,255,255,0.76);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+  }
+  #aeroview-live-radar-json .av-map-empty {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--av-muted);
+    font-size: 13px;
+    text-align: center;
+    padding: 20px;
+  }
   #aeroview-live-radar-json .av-window:before,
   #aeroview-live-radar-json .av-window:after {
     content: "";
@@ -171,6 +256,10 @@ Replace CONFIG.FEED_URL with your GitHub Pages JSON URL.
     letter-spacing: 0.08em;
     text-transform: uppercase;
   }
+  #aeroview-live-radar-json .av-pill.av-landed {
+    background: rgba(214,189,120,0.17);
+    color: var(--av-gold);
+  }
   #aeroview-live-radar-json .av-empty {
     height: 292px;
     display: flex;
@@ -198,6 +287,8 @@ Replace CONFIG.FEED_URL with your GitHub Pages JSON URL.
     #aeroview-live-radar-json .av-card { padding: 18px; }
     #aeroview-live-radar-json .av-header { flex-direction: column; }
     #aeroview-live-radar-json .av-time { align-self: flex-start; }
+    #aeroview-live-radar-json .av-controls { grid-template-columns: 1fr; }
+    #aeroview-live-radar-json .av-map { height: 230px; }
     #aeroview-live-radar-json .av-row {
       grid-template-columns: 1fr;
       gap: 8px;
@@ -218,6 +309,53 @@ Replace CONFIG.FEED_URL with your GitHub Pages JSON URL.
 
   const root = document.getElementById("aeroview-live-radar-json");
   if (!root) return;
+
+  const filterState = {
+    status: "all",
+    airline: "all",
+    livery: "all"
+  };
+
+  const AIRPORTS = {
+    PEK: { name: "Beijing", lat: 40.08, lon: 116.58 },
+    PKX: { name: "Beijing", lat: 39.51, lon: 116.41 },
+    PVG: { name: "Shanghai", lat: 31.14, lon: 121.80 },
+    SHA: { name: "Shanghai", lat: 31.20, lon: 121.34 },
+    SZX: { name: "Shenzhen", lat: 22.64, lon: 113.81 },
+    CAN: { name: "Guangzhou", lat: 23.39, lon: 113.31 },
+    HGH: { name: "Hangzhou", lat: 30.24, lon: 120.43 },
+    CTU: { name: "Chengdu", lat: 30.58, lon: 103.95 },
+    TFU: { name: "Chengdu", lat: 30.32, lon: 104.45 },
+    DLC: { name: "Dalian", lat: 38.97, lon: 121.54 },
+    KMG: { name: "Kunming", lat: 25.10, lon: 102.93 },
+    HKG: { name: "Hong Kong", lat: 22.31, lon: 113.92 },
+    MFM: { name: "Macau", lat: 22.15, lon: 113.59 },
+    TPE: { name: "Taipei", lat: 25.08, lon: 121.23 },
+    TSA: { name: "Taipei", lat: 25.07, lon: 121.55 },
+    XMN: { name: "Xiamen", lat: 24.54, lon: 118.13 },
+    FOC: { name: "Fuzhou", lat: 25.93, lon: 119.66 },
+    CKG: { name: "Chongqing", lat: 29.72, lon: 106.64 },
+    TAO: { name: "Qingdao", lat: 36.36, lon: 120.09 },
+    TNA: { name: "Jinan", lat: 36.86, lon: 117.22 },
+    NKG: { name: "Nanjing", lat: 31.74, lon: 118.86 },
+    WUH: { name: "Wuhan", lat: 30.78, lon: 114.21 },
+    CSX: { name: "Changsha", lat: 28.19, lon: 113.22 },
+    XIY: { name: "Xi'an", lat: 34.45, lon: 108.75 },
+    CGO: { name: "Zhengzhou", lat: 34.52, lon: 113.84 },
+    KWE: { name: "Guiyang", lat: 26.54, lon: 106.80 },
+    NNG: { name: "Nanning", lat: 22.61, lon: 108.17 },
+    HAQ: { name: "Haikou", lat: 19.93, lon: 110.46 },
+    SYX: { name: "Sanya", lat: 18.30, lon: 109.41 },
+    TSN: { name: "Tianjin", lat: 39.12, lon: 117.35 },
+    SHE: { name: "Shenyang", lat: 41.64, lon: 123.48 },
+    HRB: { name: "Harbin", lat: 45.62, lon: 126.25 },
+    CGQ: { name: "Changchun", lat: 43.99, lon: 125.69 },
+    URC: { name: "Urumqi", lat: 43.91, lon: 87.47 },
+    LHW: { name: "Lanzhou", lat: 36.52, lon: 103.62 },
+    INC: { name: "Yinchuan", lat: 38.32, lon: 106.39 },
+    HET: { name: "Hohhot", lat: 40.85, lon: 111.82 },
+    YTY: { name: "Yangzhou", lat: 32.56, lon: 119.72 }
+  };
 
   function esc(value) {
     return String(value == null ? "" : value).replace(/[&<>'"]/g, function (c) {
@@ -256,7 +394,8 @@ Replace CONFIG.FEED_URL with your GitHub Pages JSON URL.
     const flight = item.flight || "LIVE";
     const origin = item.origin || "---";
     const destination = item.destination || "---";
-    const status = item.status || "en-route";
+    const status = normalizeStatus(item.status);
+    const statusClass = status === "landed" ? " av-landed" : "";
     return `
       <div class="av-row">
         <div class="av-flight">${esc(flight)}</div>
@@ -273,8 +412,119 @@ Replace CONFIG.FEED_URL with your GitHub Pages JSON URL.
         <div>
           <div class="av-label">Updated</div>
           <div class="av-main">${formatTime(item.updated)} CST</div>
-          <span class="av-pill">${esc(status)}</span>
+          <span class="av-pill${statusClass}">${esc(status)}</span>
         </div>
+      </div>`;
+  }
+
+  function normalizeStatus(value) {
+    const status = String(value || "en-route").trim().toLowerCase();
+    if (["landed", "arrived", "arrival", "arr", "on-ground", "onground"].indexOf(status) >= 0) return "landed";
+    return status || "en-route";
+  }
+
+  function isInFlight(item) {
+    return normalizeStatus(item.status) !== "landed";
+  }
+
+  function uniqueSorted(items, field) {
+    const values = items.map(function (item) { return item[field]; }).filter(Boolean);
+    return Array.from(new Set(values)).sort(function (a, b) { return String(a).localeCompare(String(b)); });
+  }
+
+  function applyFilters(items) {
+    return items.filter(function (item) {
+      const status = isInFlight(item) ? "in-flight" : "landed";
+      if (filterState.status !== "all" && filterState.status !== status) return false;
+      if (filterState.airline !== "all" && item.airline !== filterState.airline) return false;
+      if (filterState.livery !== "all" && item.livery !== filterState.livery) return false;
+      return true;
+    });
+  }
+
+  function optionHtml(value, label, selectedValue) {
+    return `<option value="${esc(value)}"${value === selectedValue ? " selected" : ""}>${esc(label)}</option>`;
+  }
+
+  function filterControls(items) {
+    const airlines = uniqueSorted(items, "airline");
+    const liveries = uniqueSorted(items, "livery");
+    return `
+      <div class="av-controls">
+        <label class="av-filter">
+          <div class="av-label">Status</div>
+          <select data-av-filter="status">
+            ${optionHtml("all", "All status", filterState.status)}
+            ${optionHtml("in-flight", "In flight", filterState.status)}
+            ${optionHtml("landed", "Landed today", filterState.status)}
+          </select>
+        </label>
+        <label class="av-filter">
+          <div class="av-label">Airline</div>
+          <select data-av-filter="airline">
+            ${optionHtml("all", "All airlines", filterState.airline)}
+            ${airlines.map(function (airline) { return optionHtml(airline, airline, filterState.airline); }).join("")}
+          </select>
+        </label>
+        <label class="av-filter">
+          <div class="av-label">Livery</div>
+          <select data-av-filter="livery">
+            ${optionHtml("all", "All liveries", filterState.livery)}
+            ${liveries.map(function (livery) { return optionHtml(livery, livery, filterState.livery); }).join("")}
+          </select>
+        </label>
+      </div>`;
+  }
+
+  function projectAirport(code) {
+    const airport = AIRPORTS[String(code || "").toUpperCase()];
+    if (!airport) return null;
+    const minLon = 82;
+    const maxLon = 129;
+    const minLat = 17;
+    const maxLat = 47;
+    const x = ((airport.lon - minLon) / (maxLon - minLon)) * 920 + 40;
+    const y = 330 - ((airport.lat - minLat) / (maxLat - minLat)) * 280;
+    return { x: Math.max(22, Math.min(978, x)), y: Math.max(22, Math.min(358, y)), airport: airport };
+  }
+
+  function routeMap(items) {
+    const routes = items.filter(isInFlight).map(function (item) {
+      const origin = projectAirport(item.origin);
+      const destination = projectAirport(item.destination);
+      if (!origin || !destination) return null;
+      return { item: item, origin: origin, destination: destination };
+    }).filter(Boolean);
+
+    if (!routes.length) {
+      return `<div class="av-map"><div class="av-map-empty">No in-flight route with mapped city coordinates in this selection.</div></div>`;
+    }
+
+    const grid = [0, 1, 2, 3, 4].map(function (i) {
+      const y = 60 + i * 62;
+      return `<line class="av-map-grid" x1="40" y1="${y}" x2="960" y2="${y}"></line>`;
+    }).join("");
+    const lines = routes.map(function (route) {
+      const mx = (route.origin.x + route.destination.x) / 2;
+      const my = Math.min(route.origin.y, route.destination.y) - 28;
+      return `<path class="av-route-line" d="M ${route.origin.x.toFixed(1)} ${route.origin.y.toFixed(1)} Q ${mx.toFixed(1)} ${my.toFixed(1)} ${route.destination.x.toFixed(1)} ${route.destination.y.toFixed(1)}"></path>`;
+    }).join("");
+    const dots = routes.map(function (route) {
+      const labelX = Math.min(940, route.destination.x + 8);
+      return `
+        <circle class="av-route-dot" cx="${route.origin.x.toFixed(1)}" cy="${route.origin.y.toFixed(1)}" r="4.5"></circle>
+        <circle class="av-route-plane" cx="${route.destination.x.toFixed(1)}" cy="${route.destination.y.toFixed(1)}" r="5.5"></circle>
+        <text class="av-map-label" x="${labelX.toFixed(1)}" y="${(route.destination.y - 8).toFixed(1)}">${esc(route.item.destination || "")}</text>`;
+    }).join("");
+
+    return `
+      <div class="av-map">
+        <svg viewBox="0 0 1000 380" role="img" aria-label="In-flight route map">
+          ${grid}
+          <path class="av-map-land" d="M90 305 L130 210 L210 176 L270 90 L386 74 L472 108 L604 80 L744 112 L892 82 L938 178 L858 255 L742 292 L590 278 L438 314 L284 288 Z"></path>
+          ${lines}
+          ${dots}
+        </svg>
       </div>`;
   }
 
@@ -295,6 +545,15 @@ Replace CONFIG.FEED_URL with your GitHub Pages JSON URL.
       </div>`;
   }
 
+  function bindFilters(items, meta) {
+    root.querySelectorAll("[data-av-filter]").forEach(function (select) {
+      select.addEventListener("change", function () {
+        filterState[select.getAttribute("data-av-filter")] = select.value;
+        renderFeed(items, meta);
+      });
+    });
+  }
+
   function renderLoading() {
     shell("Loading GitHub JSON feed...", "av-warn", `<div class="av-empty"><strong>Loading live feed</strong><span>正在读取公开 JSON 数据。</span></div>`, "GitHub Pages JSON mode", "Auto refresh enabled");
   }
@@ -309,12 +568,17 @@ Replace CONFIG.FEED_URL with your GitHub Pages JSON URL.
   }
 
   function renderFeed(items, meta) {
-    const repeated = items.concat(items);
-    const duration = Math.max(22, items.length * 7);
+    const filtered = applyFilters(items);
+    const repeated = filtered.concat(filtered);
+    const duration = Math.max(22, filtered.length * 7);
     const rows = repeated.map(flightRow).join("");
     const generated = meta && meta.generated_at ? "Feed generated: " + formatTime(meta.generated_at) + " CST" : "GitHub JSON feed";
-    const countText = items.length + " matched aircraft · Hover to pause";
-    shell("Live feed loaded · " + items.length + " special livery match" + (items.length === 1 ? "" : "es"), "", `<div class="av-window"><div class="av-track" style="--av-scroll-duration:${duration}s">${rows}</div></div>`, generated, countText);
+    const countText = filtered.length + " shown / " + items.length + " today · Hover to pause";
+    const empty = `<div class="av-empty"><strong>No aircraft in this filter</strong><span>Try another status, airline, or livery category.</span></div>`;
+    const list = filtered.length ? `<div class="av-window"><div class="av-track" style="--av-scroll-duration:${duration}s">${rows}</div></div>` : empty;
+    const body = filterControls(items) + routeMap(filtered) + list;
+    shell("Live feed loaded · " + filtered.length + " of " + items.length + " special livery matches", "", body, generated, countText);
+    bindFilters(items, meta);
   }
 
   async function fetchJson(url) {
