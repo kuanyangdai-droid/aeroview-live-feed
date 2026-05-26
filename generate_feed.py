@@ -212,7 +212,7 @@ def convert_flight_record(
 
 
 def feed_key(row: Dict[str, Any]) -> str:
-    return "|".join([row.get("registration", ""), row.get("flight", ""), row.get("origin", ""), row.get("destination", "")])
+    return normalize_registration(row.get("registration"))
 
 
 def is_today_record(row: Dict[str, Any], generated_at: str) -> bool:
@@ -226,7 +226,7 @@ def mark_as_landed(row: Dict[str, Any], generated_at: str) -> Dict[str, Any]:
     landed["altitude_m"] = 0
     landed["speed_kmh"] = 0
     landed["updated"] = generated_at
-    landed["source"] = "Retained from previous feed after landing"
+    landed["source"] = "Retained from previous feed after leaving live tracking"
     return landed
 
 
@@ -252,6 +252,20 @@ def merge_landed_today(
     return merged
 
 
+def latest_rows_by_aircraft(rows: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    latest: Dict[str, Dict[str, Any]] = {}
+
+    for row in rows:
+        key = feed_key(row)
+        if not key:
+            continue
+        current = latest.get(key)
+        if not current or (row.get("updated") or "") > (current.get("updated") or ""):
+            latest[key] = row
+
+    return list(latest.values())
+
+
 def build_feed(
     flights: List[Dict[str, Any]],
     special_liveries: Dict[str, Dict[str, Any]],
@@ -262,7 +276,6 @@ def build_feed(
     generated_at = generated_at or utc_now_iso()
     target_set = set(target_airports)
     rows: List[Dict[str, Any]] = []
-    seen: set[str] = set()
 
     for flight in flights:
         reg = normalize_registration(pick_first(flight, ["reg_number", "registration", "reg"]))
@@ -271,11 +284,9 @@ def build_feed(
         row = convert_flight_record(flight, special_liveries[reg], target_set, generated_at)
         if not row:
             continue
-        key = feed_key(row)
-        if key in seen:
-            continue
-        seen.add(key)
         rows.append(row)
+
+    rows = latest_rows_by_aircraft(rows)
 
     if previous_rows:
         rows = merge_landed_today(rows, previous_rows, generated_at)
@@ -386,7 +397,8 @@ def main() -> int:
             return 2
         previous_feed, previous_feed_error = load_previous_feed(output_path)
         if previous_feed_error:
-            errors.append(previous_feed_error)
+            print(f"Failed to load previous feed; refusing to publish a shrinking feed: {previous_feed_error}", file=sys.stderr)
+            return 3
         flights, fetch_errors = fetch_realtime_flights(api_key, target_airports)
         errors.extend(fetch_errors)
         feed = build_feed(flights, special_liveries, target_airports, previous_feed, generated_at)
