@@ -1,27 +1,20 @@
 name: Update AeroView Hangzhou Schedule Feed
 
 on:
-  push:
-    branches: [main]
   schedule:
     - cron: "0 0 * * *"
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 concurrency:
   group: aeroview-hangzhou-schedule-feed
   cancel-in-progress: true
 
 jobs:
-  build-and-deploy:
+  update-feed:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
       - name: Checkout repository
@@ -36,40 +29,19 @@ jobs:
         env:
           AIRLABS_API_KEY: ${{ secrets.AIRLABS_API_KEY }}
           TRACK_AIRPORT: "HGH"
-          OUTPUT_PATH: "public/special-livery-live.json"
-          META_PATH: "public/feed-meta.json"
+          OUTPUT_PATH: "special-livery-live.json"
+          META_PATH: "feed-meta.json"
           PREVIOUS_FEED_URL: "https://kuanyangdai-droid.github.io/aeroview-live-feed/special-livery-live.json"
         run: python generate_feed.py
 
-      - name: Add GitHub Pages helper files
+      - name: Commit updated feed
         run: |
-          touch public/.nojekyll
-          cat > public/index.html <<'HTML'
-          <!doctype html>
-          <html lang="en">
-          <head>
-            <meta charset="utf-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1">
-            <title>AeroView Hangzhou Special Livery Schedule</title>
-            <style>
-              body{font-family:system-ui,-apple-system,Segoe UI,sans-serif;margin:40px;line-height:1.6;color:#222}
-              code{background:#f2f2f2;padding:2px 6px;border-radius:4px}
-            </style>
-          </head>
-          <body>
-            <h1>AeroView Hangzhou Special Livery Schedule</h1>
-            <p>Hangzhou schedule JSON feed: <a href="./special-livery-live.json"><code>special-livery-live.json</code></a></p>
-            <p>Metadata: <a href="./feed-meta.json"><code>feed-meta.json</code></a></p>
-            <p>This feed scans today's HGH arrivals and departures, then matches returned aircraft registrations against <code>special_liveries.json</code>.</p>
-          </body>
-          </html>
-          HTML
-
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: public
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add special-livery-live.json feed-meta.json
+          if git diff --cached --quiet; then
+            echo "No feed changes to commit."
+          else
+            git commit -m "Update Hangzhou schedule feed [skip ci]"
+            git push
+          fi
