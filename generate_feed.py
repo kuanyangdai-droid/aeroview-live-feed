@@ -25,7 +25,7 @@ import sys
 import time
 import urllib.parse
 import urllib.request
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Tuple
 
@@ -37,10 +37,33 @@ SPECIAL_LIVERIES_PATH = Path("special_liveries.json")
 REQUEST_SLEEP_SECONDS = 0.75
 REQUEST_TIMEOUT_SECONDS = 30
 MAX_RECORDS = 80
+CHINA_TZ = timezone(timedelta(hours=8))
 
 
 def utc_now_iso() -> str:
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+
+
+def parse_iso_datetime(value: Any) -> Optional[datetime]:
+    if not isinstance(value, str) or not value.strip():
+        return None
+    text = value.strip()
+    if text.endswith("Z"):
+        text = text[:-1] + "+00:00"
+    try:
+        parsed = datetime.fromisoformat(text)
+    except ValueError:
+        return None
+    if parsed.tzinfo is None:
+        parsed = parsed.replace(tzinfo=timezone.utc)
+    return parsed
+
+
+def local_date_key(value: Any, tz: timezone = CHINA_TZ) -> Optional[str]:
+    parsed = parse_iso_datetime(value)
+    if not parsed:
+        return None
+    return parsed.astimezone(tz).date().isoformat()
 
 
 def normalize_registration(value: Any) -> str:
@@ -135,6 +158,13 @@ def to_number_or_none(value: Any) -> Optional[float]:
         return None
 
 
+def normalize_status(value: Any) -> str:
+    status = str(value or "").strip().lower()
+    if status in {"landed", "arrived", "arrival", "arr", "on-ground", "onground"}:
+        return "landed"
+    return status or "en-route"
+
+
 def convert_flight_record(
     flight: Dict[str, Any],
     livery: Dict[str, Any],
@@ -175,18 +205,61 @@ def convert_flight_record(
         "speed_kmh": speed,
         "latitude": lat,
         "longitude": lng,
-        "status": pick_first(flight, ["status"], "en-route"),
+        "status": normalize_status(pick_first(flight, ["status"], "en-route")),
         "updated": updated_iso,
         "source": "AirLabs Real-Time Flights + special_liveries.json",
     }
+
+
+def feed_key(row: Dict[str, Any]) -> str:
+    return "|".join([row.get("registration", ""), row.get("flight", ""), row.get("origin", ""), row.get("destination", "")])
+
+
+def is_today_record(row: Dict[str, Any], generated_at: str) -> bool:
+    today = local_date_key(generated_at)
+    return bool(today and local_date_key(row.get("updated")) == today)
+
+
+def mark_as_landed(row: Dict[str, Any], generated_at: str) -> Dict[str, Any]:
+    landed = dict(row)
+    landed["status"] = "landed"
+    landed["altitude_m"] = 0
+    landed["speed_kmh"] = 0
+    landed["updated"] = generated_at
+    landed["source"] = "Retained from previous feed after landing"
+    return landed
+
+
+def merge_landed_today(
+    rows: List[Dict[str, Any]],
+    previous_rows: List[Dict[str, Any]],
+    generated_at: str,
+) -> List[Dict[str, Any]]:
+    seen = {feed_key(row) for row in rows}
+    merged = list(rows)
+
+    for previous in previous_rows:
+        if not isinstance(previous, dict):
+            continue
+        key = feed_key(previous)
+        if not key or key in seen:
+            continue
+        if not is_today_record(previous, generated_at):
+            continue
+        seen.add(key)
+        merged.append(mark_as_landed(previous, generated_at))
+
+    return merged
 
 
 def build_feed(
     flights: List[Dict[str, Any]],
     special_liveries: Dict[str, Dict[str, Any]],
     target_airports: List[str],
+    previous_rows: Optional[List[Dict[str, Any]]] = None,
+    generated_at: Optional[str] = None,
 ) -> List[Dict[str, Any]]:
-    generated_at = utc_now_iso()
+    generated_at = generated_at or utc_now_iso()
     target_set = set(target_airports)
     rows: List[Dict[str, Any]] = []
     seen: set[str] = set()
@@ -198,11 +271,14 @@ def build_feed(
         row = convert_flight_record(flight, special_liveries[reg], target_set, generated_at)
         if not row:
             continue
-        key = "|".join([row.get("registration", ""), row.get("flight", ""), row.get("origin", ""), row.get("destination", "")])
+        key = feed_key(row)
         if key in seen:
             continue
         seen.add(key)
         rows.append(row)
+
+    if previous_rows:
+        rows = merge_landed_today(rows, previous_rows, generated_at)
 
     rows.sort(key=lambda x: (x.get("updated") or "", x.get("flight") or ""), reverse=True)
     return rows[:MAX_RECORDS]
@@ -251,6 +327,42 @@ def write_json(path: Path, payload: Any) -> None:
     path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
+def default_previous_feed_url() -> str:
+    repository = os.environ.get("GITHUB_REPOSITORY", "").strip()
+    if not repository or "/" not in repository:
+        return ""
+    owner, repo = repository.split("/", 1)
+    return f"https://{owner}.github.io/{repo}/special-livery-live.json"
+
+
+def load_json_array_from_url(url: str) -> Tuple[List[Dict[str, Any]], Optional[str]]:
+    request = urllib.request.Request(url, headers={"User-Agent": "AeroViewLiveFeed/1.0"})
+    try:
+        with urllib.request.urlopen(request, timeout=REQUEST_TIMEOUT_SECONDS) as response:
+            payload = json.loads(response.read().decode("utf-8"))
+    except Exception as exc:  # noqa: BLE001 - previous feed is best effort
+        return [], f"previous_feed_failed: {type(exc).__name__}: {exc}"
+    if not isinstance(payload, list):
+        return [], "previous_feed_invalid: expected JSON array"
+    return [item for item in payload if isinstance(item, dict)], None
+
+
+def load_previous_feed(output_path: Path) -> Tuple[List[Dict[str, Any]], Optional[str]]:
+    if output_path.exists():
+        try:
+            payload = json.loads(output_path.read_text(encoding="utf-8"))
+        except Exception as exc:  # noqa: BLE001
+            return [], f"previous_feed_file_failed: {type(exc).__name__}: {exc}"
+        if isinstance(payload, list):
+            return [item for item in payload if isinstance(item, dict)], None
+        return [], "previous_feed_file_invalid: expected JSON array"
+
+    previous_url = os.environ.get("PREVIOUS_FEED_URL", "").strip() or default_previous_feed_url()
+    if not previous_url:
+        return [], None
+    return load_json_array_from_url(previous_url)
+
+
 def main() -> int:
     output_path = Path(os.environ.get("OUTPUT_PATH", str(DEFAULT_OUTPUT_PATH)))
     meta_path = Path(os.environ.get("META_PATH", str(DEFAULT_META_PATH)))
@@ -272,8 +384,12 @@ def main() -> int:
         if not api_key:
             print("AIRLABS_API_KEY is required unless DEMO_MODE=true", file=sys.stderr)
             return 2
-        flights, errors = fetch_realtime_flights(api_key, target_airports)
-        feed = build_feed(flights, special_liveries, target_airports)
+        previous_feed, previous_feed_error = load_previous_feed(output_path)
+        if previous_feed_error:
+            errors.append(previous_feed_error)
+        flights, fetch_errors = fetch_realtime_flights(api_key, target_airports)
+        errors.extend(fetch_errors)
+        feed = build_feed(flights, special_liveries, target_airports, previous_feed, generated_at)
 
     meta = {
         "generated_at": generated_at,
