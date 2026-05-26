@@ -1,20 +1,19 @@
 {
-  "generated_at": "2026-05-26T00:40:37Z",
-  "target_airports": [
-    "PVG",
-    "SHA",
-    "PEK",
-    "PKX",
-    "SZX",
-    "CAN",
-    "HGH",
-    "CTU",
-    "TFU",
-    "DLC"
-  ],
-  "record_count": 2,
-  "special_livery_count": 72,
-  "mode": "demo",
+  "generated_at": "2026-05-26T12:51:12Z",
+  "schedule_date": "2026-05-26",
+  "track_airport": "HGH",
+  "track_airport_info": {
+    "code": "HGH",
+    "country": "China",
+    "name": "Hangzhou Xiaoshan",
+    "latitude": 30.24,
+    "longitude": 120.43
+  },
+  "record_count": 0,
+  "arrival_count": 0,
+  "departure_count": 0,
+  "special_livery_count": 242,
+  "mode": "schedule",
   "errors": [],
-  "notes": "Feed contains only currently tracked flights whose registration number is returned by the API and exists in special_liveries.json."
+  "notes": "Hangzhou schedule scanner. Only schedule rows with an AirLabs-returned aircraft registration can be matched."
 }
