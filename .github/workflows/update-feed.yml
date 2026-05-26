@@ -32,12 +32,22 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Generate live feed JSON
+      - name: Generate global major airport feed JSON
         env:
           AIRLABS_API_KEY: ${{ secrets.AIRLABS_API_KEY }}
-          TARGET_AIRPORTS: "PVG,SHA,PEK,PKX,SZX,CAN,HGH,CTU,TFU,DLC"
+          TARGET_AIRPORT_PROFILE: "global_major"
           OUTPUT_PATH: "public/special-livery-live.json"
           META_PATH: "public/feed-meta.json"
+          PREVIOUS_FEED_URL: "https://kuanyangdai-droid.github.io/aeroview-live-feed/special-livery-live.json"
+        run: python generate_feed.py
+
+      - name: Generate China airport feed JSON
+        env:
+          AIRLABS_API_KEY: ${{ secrets.AIRLABS_API_KEY }}
+          TARGET_AIRPORT_PROFILE: "china_all"
+          OUTPUT_PATH: "public/china-special-livery-live.json"
+          META_PATH: "public/china-feed-meta.json"
+          PREVIOUS_FEED_URL: "https://kuanyangdai-droid.github.io/aeroview-live-feed/china-special-livery-live.json"
         run: python generate_feed.py
 
       - name: Add GitHub Pages helper files
@@ -57,8 +67,10 @@ jobs:
           </head>
           <body>
             <h1>AeroView Special Livery Live Feed</h1>
-            <p>JSON feed: <a href="./special-livery-live.json"><code>special-livery-live.json</code></a></p>
-            <p>Metadata: <a href="./feed-meta.json"><code>feed-meta.json</code></a></p>
+            <p>Global major airport JSON feed: <a href="./special-livery-live.json"><code>special-livery-live.json</code></a></p>
+            <p>Global metadata: <a href="./feed-meta.json"><code>feed-meta.json</code></a></p>
+            <p>China airport JSON feed: <a href="./china-special-livery-live.json"><code>china-special-livery-live.json</code></a></p>
+            <p>China metadata: <a href="./china-feed-meta.json"><code>china-feed-meta.json</code></a></p>
           </body>
           </html>
           HTML
