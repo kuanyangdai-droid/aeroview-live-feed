@@ -1,118 +1,140 @@
 # AeroView Special Livery Live Feed
 
-本仓库用于生成 **AeroView Special Livery Live Radar** 的后端公开 JSON。它通过 GitHub Actions 定时调用 AirLabs Real-Time Flights API，查询上海、北京、深圳、广州、杭州、成都、大连相关机场的当前在飞航班，再用飞机注册号与 `special_liveries.json` 中的特殊涂装库匹配，最后把结果发布为 GitHub Pages 上的静态 JSON。
+本仓库用于生成 **AeroView Special Livery Live Radar** 的公开 JSON feed，并提供可粘贴到 GoDaddy Custom HTML 的前端组件。
 
-GoDaddy 网站不再直接访问 AirLabs，也不需要保存 AirLabs API Key。GoDaddy 自定义 HTML 模块只读取 GitHub Pages 上的 `special-livery-live.json`，因此更适合长期公开运行。
+后端通过 GitHub Actions 调用 AirLabs Real-Time Flights API，查询目标机场的实时航班，再用飞机注册号与 `special_liveries.json` 特殊涂装库匹配。GoDaddy 页面只读取 GitHub Pages 上的静态 JSON，不直接访问 AirLabs，也不会暴露 AirLabs API Key。
+
+## 当前版本
+
+现在会生成两个 feed：
+
+| Feed | 用途 | JSON |
+|---|---|---|
+| Global major airports | 覆盖亚洲、美洲、欧洲主要大型机场的特殊涂装追踪 | `special-livery-live.json` |
+| China all-airport special livery | 保留中国机场范围内的特殊涂装追踪版本 | `china-special-livery-live.json` |
+
+对应元信息：
+
+| Feed | Meta |
+|---|---|
+| Global major airports | `feed-meta.json` |
+| China all-airport special livery | `china-feed-meta.json` |
+
+当前前端支持：
+
+- Global / China feed 切换
+- 状态筛选：全部、在飞、今日已落地
+- 涂装类别筛选：星空联盟、天合联盟、寰宇一家、其他类型
+- 起飞地筛选：国家 → 机场
+- 将落地筛选：国家 → 机场
+- 世界地图航线绘制：只绘制当前筛选结果中仍在飞的航班
+- 今日累计保留：当天出现过的特殊涂装如果后续从 live tracking 消失，会保留为 `landed`，北京时间次日自动清除
+
+## API 说明
+
+世界范围版本不需要更换 API。它仍然使用同一个 AirLabs endpoint：
+
+```text
+https://airlabs.co/api/v9/flights
+```
+
+变化的是查询机场集合：
+
+- 以前 workflow 只传入少量中国重点机场。
+- 现在 `generate_feed.py` 内置两个机场 profile：
+  - `global_major`
+  - `china_all`
+- GitHub Actions 每次运行会分别用这两个 profile 调用同一个 AirLabs API，并输出两个 JSON。
+
+这意味着 AirLabs API Key、认证方式、字段解析逻辑都没有换。需要注意的是，机场数量增加后 API 请求量也会增加，因为脚本会对每个机场分别查询 `dep_iata` 和 `arr_iata`。
 
 ## 文件结构
 
 | 文件 | 用途 |
 |---|---|
 | `generate_feed.py` | 后端生成脚本；读取 AirLabs 实时航班，匹配特殊涂装注册号，输出 JSON。 |
-| `special_liveries.json` | 特殊涂装飞机注册号库，可手动增删维护。 |
-| `.github/workflows/update-feed.yml` | GitHub Actions 定时任务，每 10 分钟生成并发布一次 GitHub Pages。 |
-| `public/special-livery-live.json` | 前端读取的实时匹配结果，GitHub Actions 会自动更新。 |
-| `public/feed-meta.json` | 生成时间、机场范围、匹配数量、错误提示等元信息。 |
-| `godaddy/aeroview_godaddy_json_reader.html` | 粘贴到 GoDaddy Custom HTML 的前端滚动播报模块。 |
+| `special_liveries.json` | 特殊涂装飞机注册号库。 |
+| `.github/workflows/update-feed.yml` | GitHub Actions workflow；生成并发布两个 feed。 |
+| `aeroview_godaddy_json_reader.html` | 粘贴到 GoDaddy Custom HTML 的前端组件。 |
+| `scripts/trigger_update_feed.sh` | 本机外部定时器调用的 workflow_dispatch 脚本。 |
+| `launchd/com.aeroview.live-feed-dispatcher.plist` | macOS LaunchAgent 模板，每 10 分钟触发一次 workflow。 |
+| `logs/.gitignore` | 本地日志目录占位，实际日志不提交。 |
 
-## 第一步：创建 GitHub 仓库
+## GitHub Pages 地址
 
-新建一个 GitHub 仓库，例如：
-
-```text
-aeroview-live-feed
-```
-
-把本目录内所有文件上传到仓库根目录。请注意，`.github/workflows/update-feed.yml` 必须保留在这个路径下，不能改成其他目录。
-
-## 第二步：添加 AirLabs API Key
-
-进入 GitHub 仓库的以下位置：
+本仓库当前 Pages 地址格式：
 
 ```text
-Settings → Secrets and variables → Actions → New repository secret
+https://kuanyangdai-droid.github.io/aeroview-live-feed/
 ```
 
-添加一个 Secret：
-
-| Name | Value |
-|---|---|
-| `AIRLABS_API_KEY` | 你的 AirLabs API Key |
-
-脚本会从 GitHub Secrets 中读取这个值，GoDaddy 页面不会看到这个 Key。
-
-## 第三步：启用 GitHub Pages
-
-进入仓库：
+Feed 地址：
 
 ```text
-Settings → Pages
+https://kuanyangdai-droid.github.io/aeroview-live-feed/special-livery-live.json
+https://kuanyangdai-droid.github.io/aeroview-live-feed/feed-meta.json
+
+https://kuanyangdai-droid.github.io/aeroview-live-feed/china-special-livery-live.json
+https://kuanyangdai-droid.github.io/aeroview-live-feed/china-feed-meta.json
 ```
 
-在 **Build and deployment** 里选择：
+## 机场范围
 
-| 选项 | 设置 |
-|---|---|
-| Source | GitHub Actions |
+### Global major airports
 
-保存后，进入 **Actions** 页面，手动运行一次 `Update AeroView Special Livery Live Feed`。运行成功后，GitHub Pages 会生成公开地址。
+覆盖亚、美、欧主要大型机场，包括但不限于：
 
-假设你的用户名是 `yourname`，仓库名是 `aeroview-live-feed`，则 JSON 地址通常是：
+- 北美：ATL、LAX、JFK、EWR、ORD、DFW、DEN、SFO、SEA、MIA、IAH、YYZ
+- 欧洲：LHR、CDG、AMS、FRA、IST、MAD、BCN、MUC、ZRH、FCO、VIE、CPH、DUB
+- 亚洲 / 中东：DXB、DOH、AUH、DEL、BOM、SIN、HKG、ICN、NRT、HND、BKK、KUL、TPE
+- 中国核心枢纽：PVG、SHA、PEK、PKX、CAN、SZX、HGH、CTU、TFU
 
-```text
-https://yourname.github.io/aeroview-live-feed/special-livery-live.json
-```
+### China all-airport special livery
 
-元信息地址通常是：
+覆盖中国大陆主要民航机场，并包含港澳台相关机场：HKG、MFM、TPE、TSA。
 
-```text
-https://yourname.github.io/aeroview-live-feed/feed-meta.json
-```
+完整列表以 `generate_feed.py` 中的 `CHINA_ALL_AIRPORTS` 为准。
 
-## 第四步：配置 GoDaddy HTML
+## Workflow
 
-打开：
-
-```text
-godaddy/aeroview_godaddy_json_reader.html
-```
-
-找到配置区：
-
-```javascript
-const CONFIG = {
-  FEED_URL: "https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPO_NAME/special-livery-live.json",
-  META_URL: "https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPO_NAME/feed-meta.json",
-  REFRESH_MINUTES: 5,
-  TIME_ZONE: "Asia/Shanghai"
-};
-```
-
-把 `FEED_URL` 和 `META_URL` 改成你的真实 GitHub Pages 地址，然后把整个 HTML 文件内容复制到 GoDaddy 的 **Custom HTML / 自定义 HTML** 模块中。
-
-## 默认机场范围
-
-默认目标机场覆盖你提出的城市范围。
-
-| 城市 | 机场 | IATA |
-|---|---|---|
-| 上海 | 浦东、虹桥 | PVG、SHA |
-| 北京 | 首都、大兴 | PEK、PKX |
-| 深圳 | 宝安 | SZX |
-| 广州 | 白云 | CAN |
-| 杭州 | 萧山 | HGH |
-| 成都 | 双流、天府 | CTU、TFU |
-| 大连 | 周水子 | DLC |
-
-如需修改机场范围，可编辑 `.github/workflows/update-feed.yml` 中的：
+`.github/workflows/update-feed.yml` 中会连续生成两个 feed：
 
 ```yaml
-TARGET_AIRPORTS: "PVG,SHA,PEK,PKX,SZX,CAN,HGH,CTU,TFU,DLC"
+TARGET_AIRPORT_PROFILE: "global_major"
+OUTPUT_PATH: "public/special-livery-live.json"
+META_PATH: "public/feed-meta.json"
+```
+
+```yaml
+TARGET_AIRPORT_PROFILE: "china_all"
+OUTPUT_PATH: "public/china-special-livery-live.json"
+META_PATH: "public/china-feed-meta.json"
+```
+
+GitHub 自带 `schedule` 仍保留，但由于 GitHub scheduled workflow 可能延迟或丢弃，本仓库还配置了本机 macOS LaunchAgent 外部定时器，通过 `workflow_dispatch` 每 10 分钟触发一次。
+
+## GoDaddy 使用
+
+把 `aeroview_godaddy_json_reader.html` 的完整内容粘贴到 GoDaddy 的 **Custom HTML / 自定义 HTML** 模块中。
+
+当前 HTML 已经配置好本仓库的两个 feed 地址：
+
+```javascript
+FEEDS: {
+  global: {
+    feedUrl: "https://kuanyangdai-droid.github.io/aeroview-live-feed/special-livery-live.json",
+    metaUrl: "https://kuanyangdai-droid.github.io/aeroview-live-feed/feed-meta.json"
+  },
+  china: {
+    feedUrl: "https://kuanyangdai-droid.github.io/aeroview-live-feed/china-special-livery-live.json",
+    metaUrl: "https://kuanyangdai-droid.github.io/aeroview-live-feed/china-feed-meta.json"
+  }
+}
 ```
 
 ## 维护特殊涂装库
 
-`special_liveries.json` 是一个数组，每条记录至少应包含 `registration` 与 `livery`。推荐格式如下：
+`special_liveries.json` 是一个数组，每条记录至少应包含 `registration` 与 `livery`。示例：
 
 ```json
 {
@@ -125,35 +147,42 @@ TARGET_AIRPORTS: "PVG,SHA,PEK,PKX,SZX,CAN,HGH,CTU,TFU,DLC"
 }
 ```
 
-如果你发现某架特殊涂装飞机未被收录，只需要把注册号加到这个文件中即可。脚本会自动用注册号匹配 AirLabs 返回的实时航班。
+新增特殊涂装飞机时，把注册号加入这个文件即可。脚本会自动用注册号匹配 AirLabs 返回的实时航班。
 
 ## 重要限制
 
-这个方案只播报 **当前在飞且 AirLabs 返回注册号** 的航班。它不是完整的“当日计划”。如果某架特殊涂装飞机还未起飞、已经落地、没有被实时追踪，或 API 没有返回 `reg_number`，它不会出现在 JSON 中。
-
-GitHub Actions 的定时任务并不保证精确到秒，实际运行可能因 GitHub 队列而略有延迟。对网页展示而言，5 至 10 分钟刷新一次通常已经足够。
+- 只会显示 AirLabs 实时接口返回且带有注册号的航班。
+- 机场范围扩大后，AirLabs API 请求量会明显高于早期中国重点机场版本。
+- 今日累计保留依赖上一版 GitHub Pages JSON；如果读取上一版失败，脚本会拒绝发布可能缩水的新 feed。
+- `landed` 记录按北京时间日期清理，次日自动移除。
+- 世界地图为轻量 SVG 示意图，不是精确 GIS 地图。
 
 ## 本地测试
 
-如果你想在上传前验证脚本是否能运行，可以执行：
+演示模式：
 
 ```bash
 DEMO_MODE=true python generate_feed.py
 ```
 
-这会在 `public/` 目录生成演示 JSON，不会调用 AirLabs。若要真实调用 AirLabs，请执行：
+真实调用全球主要机场 profile：
 
 ```bash
-AIRLABS_API_KEY="你的Key" python generate_feed.py
+AIRLABS_API_KEY="你的Key" TARGET_AIRPORT_PROFILE=global_major python generate_feed.py
 ```
 
-## 推荐上线检查
+真实调用中国机场 profile：
 
-上线后，请依次检查：
+```bash
+AIRLABS_API_KEY="你的Key" TARGET_AIRPORT_PROFILE=china_all OUTPUT_PATH=public/china-special-livery-live.json META_PATH=public/china-feed-meta.json python generate_feed.py
+```
+
+## 上线检查
 
 | 检查项 | 正常表现 |
 |---|---|
 | GitHub Actions | `Update AeroView Special Livery Live Feed` 运行成功。 |
-| GitHub Pages | `special-livery-live.json` 可以直接在浏览器打开。 |
-| GoDaddy 模块 | 显示加载成功、无匹配、或实时匹配结果，而不是 URL 配置错误。 |
-| API 用量 | AirLabs 后台请求量与 GitHub Actions 频率一致，不会因访客量增加而倍增。 |
+| Global feed | `special-livery-live.json` 和 `feed-meta.json` 可打开。 |
+| China feed | `china-special-livery-live.json` 和 `china-feed-meta.json` 可打开。 |
+| GoDaddy 模块 | 可切换 Coverage，并可按状态、涂装类别、起飞地、将落地筛选。 |
+| 外部定时器 | `~/Library/Logs/AeroView/dispatch.out.log` 能看到定期 workflow_dispatch 记录。 |
