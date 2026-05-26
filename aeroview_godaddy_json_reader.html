@@ -1,42 +1,36 @@
-
 <!--
-AeroView Special Livery Live Radar - GoDaddy JSON Reader Version
+AeroView Hangzhou Special Livery Schedule - GoDaddy JSON Reader Version
 Paste this whole block into a GoDaddy Custom HTML section.
-Replace CONFIG.FEED_URL with your GitHub Pages JSON URL.
 -->
 <meta charset="utf-8">
-<div id="aeroview-live-radar-json"></div>
+<div id="aeroview-hgh-schedule"></div>
 <style>
-  #aeroview-live-radar-json {
-    --av-bg: #222426;
-    --av-panel: rgba(255, 255, 255, 0.055);
-    --av-panel-2: rgba(255, 255, 255, 0.095);
+  #aeroview-hgh-schedule {
+    --av-bg: #202224;
+    --av-panel: rgba(255, 255, 255, 0.07);
+    --av-panel-2: rgba(255, 255, 255, 0.11);
     --av-line: rgba(255, 255, 255, 0.16);
-    --av-text: #f4f4f4;
+    --av-text: #f5f5f2;
     --av-muted: rgba(255, 255, 255, 0.68);
-    --av-soft: rgba(255, 255, 255, 0.42);
-    --av-green: #61e6a3;
-    --av-gold: #d6bd78;
-    --av-red: #ff7b7b;
+    --av-soft: rgba(255, 255, 255, 0.46);
+    --av-green: #66e0a3;
+    --av-blue: #8eb8ff;
+    --av-gold: #d9bd73;
+    --av-red: #ff7d7d;
     font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     color: var(--av-text);
     width: 100%;
-    max-width: 980px;
+    max-width: 1040px;
     margin: 0 auto;
   }
-  #aeroview-live-radar-json .av-card {
-    position: relative;
-    overflow: hidden;
-    border-radius: 18px;
-    background:
-      radial-gradient(circle at 100% 100%, rgba(97, 230, 163, 0.16), transparent 28%),
-      radial-gradient(circle at 0% 0%, rgba(214, 189, 120, 0.13), transparent 24%),
-      linear-gradient(135deg, #2d2d31, #1f2022 68%, #2b2c2e);
+  #aeroview-hgh-schedule .av-card {
+    border-radius: 16px;
+    background: linear-gradient(135deg, #292b2d, #1f2022 64%, #2b2924);
     border: 1px solid rgba(255,255,255,0.14);
-    box-shadow: 0 22px 54px rgba(0,0,0,0.28);
+    box-shadow: 0 22px 54px rgba(0,0,0,0.26);
     padding: 22px 24px 18px;
   }
-  #aeroview-live-radar-json .av-header {
+  #aeroview-hgh-schedule .av-header {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
@@ -44,27 +38,26 @@ Replace CONFIG.FEED_URL with your GitHub Pages JSON URL.
     padding-bottom: 16px;
     border-bottom: 1px solid var(--av-line);
   }
-  #aeroview-live-radar-json .av-kicker {
-    letter-spacing: 0.24em;
+  #aeroview-hgh-schedule .av-kicker {
+    letter-spacing: 0.22em;
     text-transform: uppercase;
     color: var(--av-muted);
     font-size: 11px;
-    font-weight: 700;
+    font-weight: 750;
     margin-bottom: 5px;
   }
-  #aeroview-live-radar-json .av-title {
+  #aeroview-hgh-schedule .av-title {
     margin: 0;
-    font-size: clamp(24px, 3.2vw, 36px);
-    line-height: 1.04;
-    letter-spacing: 0.02em;
-    font-weight: 800;
+    font-size: clamp(24px, 3vw, 34px);
+    line-height: 1.05;
+    font-weight: 850;
   }
-  #aeroview-live-radar-json .av-subtitle {
+  #aeroview-hgh-schedule .av-subtitle {
     margin: 7px 0 0;
     color: var(--av-muted);
     font-size: 14px;
   }
-  #aeroview-live-radar-json .av-time {
+  #aeroview-hgh-schedule .av-time {
     flex: 0 0 auto;
     border: 1px solid var(--av-line);
     background: var(--av-panel);
@@ -72,12 +65,12 @@ Replace CONFIG.FEED_URL with your GitHub Pages JSON URL.
     padding: 9px 12px;
     color: var(--av-text);
     font-size: 12px;
-    font-weight: 700;
+    font-weight: 750;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     white-space: nowrap;
   }
-  #aeroview-live-radar-json .av-status {
+  #aeroview-hgh-schedule .av-status {
     display: flex;
     align-items: center;
     gap: 9px;
@@ -85,44 +78,56 @@ Replace CONFIG.FEED_URL with your GitHub Pages JSON URL.
     color: var(--av-muted);
     font-size: 13px;
   }
-  #aeroview-live-radar-json .av-dot {
+  #aeroview-hgh-schedule .av-dot {
     width: 9px;
     height: 9px;
     border-radius: 999px;
     background: var(--av-green);
-    box-shadow: 0 0 0 5px rgba(97, 230, 163, 0.12), 0 0 18px rgba(97, 230, 163, 0.75);
+    box-shadow: 0 0 0 5px rgba(102, 224, 163, 0.13), 0 0 18px rgba(102, 224, 163, 0.72);
     flex: 0 0 auto;
   }
-  #aeroview-live-radar-json .av-dot.av-warn {
+  #aeroview-hgh-schedule .av-dot.av-warn {
     background: var(--av-gold);
-    box-shadow: 0 0 0 5px rgba(214, 189, 120, 0.12), 0 0 18px rgba(214, 189, 120, 0.65);
+    box-shadow: 0 0 0 5px rgba(217, 189, 115, 0.13), 0 0 18px rgba(217, 189, 115, 0.62);
   }
-  #aeroview-live-radar-json .av-dot.av-error {
+  #aeroview-hgh-schedule .av-dot.av-error {
     background: var(--av-red);
-    box-shadow: 0 0 0 5px rgba(255, 123, 123, 0.12), 0 0 18px rgba(255, 123, 123, 0.65);
+    box-shadow: 0 0 0 5px rgba(255, 125, 125, 0.13), 0 0 18px rgba(255, 125, 125, 0.62);
   }
-  #aeroview-live-radar-json .av-window {
-    position: relative;
-    height: 292px;
-    overflow: hidden;
-    border-radius: 14px;
-    border: 1px solid var(--av-line);
-    background: rgba(0,0,0,0.22);
-  }
-  #aeroview-live-radar-json .av-controls {
+  #aeroview-hgh-schedule .av-summary {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 10px;
     margin: 0 0 12px;
   }
-  #aeroview-live-radar-json .av-filter {
-    min-width: 0;
+  #aeroview-hgh-schedule .av-stat {
+    min-height: 74px;
+    border-radius: 12px;
+    border: 1px solid var(--av-line);
+    background: rgba(0,0,0,0.22);
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
-  #aeroview-live-radar-json .av-filter select {
+  #aeroview-hgh-schedule .av-stat-value {
+    font-size: 28px;
+    line-height: 1;
+    font-weight: 900;
+  }
+  #aeroview-hgh-schedule .av-stat-live .av-stat-value { color: var(--av-green); }
+  #aeroview-hgh-schedule .av-controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(148px, 1fr));
+    gap: 10px;
+    margin: 0 0 12px;
+  }
+  #aeroview-hgh-schedule .av-filter { min-width: 0; }
+  #aeroview-hgh-schedule .av-filter select {
     width: 100%;
     height: 38px;
     color: var(--av-text);
-    background: rgba(0,0,0,0.26);
+    background: rgba(0,0,0,0.28);
     border: 1px solid var(--av-line);
     border-radius: 10px;
     padding: 0 10px;
@@ -131,137 +136,60 @@ Replace CONFIG.FEED_URL with your GitHub Pages JSON URL.
     font-weight: 750;
     outline: none;
   }
-  #aeroview-live-radar-json .av-filter select:focus {
-    border-color: rgba(97,230,163,0.58);
-    box-shadow: 0 0 0 3px rgba(97,230,163,0.12);
+  #aeroview-hgh-schedule .av-filter select:focus {
+    border-color: rgba(102,224,163,0.58);
+    box-shadow: 0 0 0 3px rgba(102,224,163,0.12);
   }
-  #aeroview-live-radar-json .av-map {
-    position: relative;
-    height: 300px;
-    overflow: hidden;
-    border-radius: 14px;
-    border: 1px solid var(--av-line);
-    background:
-      linear-gradient(180deg, rgba(97, 230, 163, 0.08), transparent 58%),
-      rgba(0,0,0,0.2);
-    margin-bottom: 12px;
-  }
-  #aeroview-live-radar-json .av-map svg {
-    display: block;
-    width: 100%;
-    height: 100%;
-  }
-  #aeroview-live-radar-json .av-map-grid {
-    stroke: rgba(255,255,255,0.07);
-    stroke-width: 1;
-  }
-  #aeroview-live-radar-json .av-map-land {
-    fill: rgba(255,255,255,0.035);
-    stroke: rgba(255,255,255,0.12);
-    stroke-width: 1;
-  }
-  #aeroview-live-radar-json .av-route-line {
-    stroke: rgba(97,230,163,0.86);
-    stroke-width: 2.4;
-    fill: none;
-    stroke-linecap: round;
-    stroke-dasharray: 7 7;
-  }
-  #aeroview-live-radar-json .av-route-dot {
-    fill: var(--av-gold);
-    stroke: rgba(0,0,0,0.42);
-    stroke-width: 1.5;
-  }
-  #aeroview-live-radar-json .av-route-plane {
-    fill: var(--av-green);
-    stroke: rgba(0,0,0,0.48);
-    stroke-width: 1.4;
-  }
-  #aeroview-live-radar-json .av-map-label {
-    fill: rgba(255,255,255,0.76);
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 0.06em;
-  }
-  #aeroview-live-radar-json .av-map-empty {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--av-muted);
-    font-size: 13px;
-    text-align: center;
-    padding: 20px;
-  }
-  #aeroview-live-radar-json .av-window:before,
-  #aeroview-live-radar-json .av-window:after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    height: 44px;
-    pointer-events: none;
-    z-index: 2;
-  }
-  #aeroview-live-radar-json .av-window:before { top: 0; background: linear-gradient(to bottom, rgba(20,20,22,0.95), transparent); }
-  #aeroview-live-radar-json .av-window:after { bottom: 0; background: linear-gradient(to top, rgba(20,20,22,0.95), transparent); }
-  #aeroview-live-radar-json .av-track {
+  #aeroview-hgh-schedule .av-list {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    padding: 12px;
-    animation: av-scroll var(--av-scroll-duration, 28s) linear infinite;
   }
-  #aeroview-live-radar-json .av-window:hover .av-track { animation-play-state: paused; }
-  @keyframes av-scroll {
-    from { transform: translateY(0); }
-    to { transform: translateY(-50%); }
-  }
-  #aeroview-live-radar-json .av-row {
-    min-height: 76px;
+  #aeroview-hgh-schedule .av-row {
+    min-height: 82px;
     display: grid;
-    grid-template-columns: 120px 1.35fr 1fr 130px;
+    grid-template-columns: 118px 1.22fr 1.08fr 132px;
     align-items: center;
     gap: 16px;
-    padding: 12px 16px;
+    padding: 13px 16px;
     border-radius: 12px;
     background: linear-gradient(90deg, rgba(255,255,255,0.08), rgba(255,255,255,0.045));
-    border: 1px solid rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.08);
   }
-  #aeroview-live-radar-json .av-flight {
+  #aeroview-hgh-schedule .av-flight {
     font-size: 21px;
     font-weight: 850;
     letter-spacing: 0.04em;
   }
-  #aeroview-live-radar-json .av-label {
+  #aeroview-hgh-schedule .av-label {
     color: var(--av-soft);
     font-size: 10px;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
     font-weight: 800;
     margin-bottom: 3px;
   }
-  #aeroview-live-radar-json .av-main { font-size: 15px; font-weight: 800; line-height: 1.22; }
-  #aeroview-live-radar-json .av-small { color: var(--av-muted); font-size: 12px; line-height: 1.35; margin-top: 2px; }
-  #aeroview-live-radar-json .av-route { font-size: 20px; font-weight: 850; letter-spacing: 0.05em; }
-  #aeroview-live-radar-json .av-pill {
+  #aeroview-hgh-schedule .av-main { font-size: 15px; font-weight: 800; line-height: 1.24; }
+  #aeroview-hgh-schedule .av-small { color: var(--av-muted); font-size: 12px; line-height: 1.35; margin-top: 2px; }
+  #aeroview-hgh-schedule .av-route { font-size: 20px; font-weight: 850; letter-spacing: 0.05em; }
+  #aeroview-hgh-schedule .av-pill {
     display: inline-flex;
     margin-top: 5px;
     padding: 3px 8px;
     border-radius: 999px;
-    background: rgba(97,230,163,0.16);
-    color: var(--av-green);
+    background: rgba(142,184,255,0.18);
+    color: var(--av-blue);
     font-size: 10px;
     font-weight: 850;
     letter-spacing: 0.08em;
     text-transform: uppercase;
   }
-  #aeroview-live-radar-json .av-pill.av-landed {
-    background: rgba(214,189,120,0.17);
-    color: var(--av-gold);
+  #aeroview-hgh-schedule .av-pill.av-arrival {
+    background: rgba(102,224,163,0.16);
+    color: var(--av-green);
   }
-  #aeroview-live-radar-json .av-empty {
-    height: 292px;
+  #aeroview-hgh-schedule .av-empty {
+    min-height: 260px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -273,8 +201,8 @@ Replace CONFIG.FEED_URL with your GitHub Pages JSON URL.
     border: 1px solid var(--av-line);
     background: rgba(0,0,0,0.18);
   }
-  #aeroview-live-radar-json .av-empty strong { color: var(--av-text); font-size: 18px; }
-  #aeroview-live-radar-json .av-footer {
+  #aeroview-hgh-schedule .av-empty strong { color: var(--av-text); font-size: 18px; }
+  #aeroview-hgh-schedule .av-footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -284,57 +212,37 @@ Replace CONFIG.FEED_URL with your GitHub Pages JSON URL.
     font-size: 11px;
   }
   @media (max-width: 760px) {
-    #aeroview-live-radar-json .av-card { padding: 18px; }
-    #aeroview-live-radar-json .av-header { flex-direction: column; }
-    #aeroview-live-radar-json .av-time { align-self: flex-start; }
-    #aeroview-live-radar-json .av-controls { grid-template-columns: 1fr; }
-    #aeroview-live-radar-json .av-map { height: 245px; }
-    #aeroview-live-radar-json .av-row {
+    #aeroview-hgh-schedule .av-card { padding: 18px; }
+    #aeroview-hgh-schedule .av-header { flex-direction: column; }
+    #aeroview-hgh-schedule .av-time { align-self: flex-start; }
+    #aeroview-hgh-schedule .av-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    #aeroview-hgh-schedule .av-controls { grid-template-columns: 1fr; }
+    #aeroview-hgh-schedule .av-row {
       grid-template-columns: 1fr;
       gap: 8px;
-      min-height: 178px;
+      min-height: 188px;
     }
-    #aeroview-live-radar-json .av-window { height: 392px; }
-    #aeroview-live-radar-json .av-empty { height: 300px; }
   }
 </style>
 <script>
 (function () {
   const CONFIG = {
-    FEEDS: {
-      global: {
-        label: "Asia / Americas / Europe major airports",
-        feedUrl: "https://kuanyangdai-droid.github.io/aeroview-live-feed/special-livery-live.json",
-        metaUrl: "https://kuanyangdai-droid.github.io/aeroview-live-feed/feed-meta.json"
-      },
-      china: {
-        label: "China all-airport special livery",
-        feedUrl: "https://kuanyangdai-droid.github.io/aeroview-live-feed/china-special-livery-live.json",
-        metaUrl: "https://kuanyangdai-droid.github.io/aeroview-live-feed/china-feed-meta.json"
-      }
-    },
+    FEED_URL: "https://kuanyangdai-droid.github.io/aeroview-live-feed/special-livery-live.json",
+    META_URL: "https://kuanyangdai-droid.github.io/aeroview-live-feed/feed-meta.json",
     REFRESH_MINUTES: 5,
     TIME_ZONE: "Asia/Shanghai"
   };
 
-  const root = document.getElementById("aeroview-live-radar-json");
+  const root = document.getElementById("aeroview-hgh-schedule");
   if (!root) return;
 
   const filterState = {
-    coverage: "global",
-    status: "all",
+    direction: "all",
+    country: "all",
+    airline: "all",
     liveryCategory: "all",
-    originCountry: "all",
     originAirport: "all",
-    destinationCountry: "all",
     destinationAirport: "all"
-  };
-
-  const AIRPORTS = {
-    ATL:{country:"United States",name:"Atlanta",lat:33.64,lon:-84.43},LAX:{country:"United States",name:"Los Angeles",lat:33.94,lon:-118.41},JFK:{country:"United States",name:"New York JFK",lat:40.64,lon:-73.78},EWR:{country:"United States",name:"Newark",lat:40.69,lon:-74.17},ORD:{country:"United States",name:"Chicago O'Hare",lat:41.98,lon:-87.90},DFW:{country:"United States",name:"Dallas/Fort Worth",lat:32.90,lon:-97.04},DEN:{country:"United States",name:"Denver",lat:39.86,lon:-104.67},SFO:{country:"United States",name:"San Francisco",lat:37.62,lon:-122.38},SEA:{country:"United States",name:"Seattle",lat:47.45,lon:-122.31},MIA:{country:"United States",name:"Miami",lat:25.79,lon:-80.29},IAH:{country:"United States",name:"Houston",lat:29.98,lon:-95.34},YYZ:{country:"Canada",name:"Toronto Pearson",lat:43.68,lon:-79.63},
-    LHR:{country:"United Kingdom",name:"London Heathrow",lat:51.47,lon:-0.45},CDG:{country:"France",name:"Paris Charles de Gaulle",lat:49.01,lon:2.55},AMS:{country:"Netherlands",name:"Amsterdam",lat:52.31,lon:4.76},FRA:{country:"Germany",name:"Frankfurt",lat:50.04,lon:8.56},IST:{country:"Turkey",name:"Istanbul",lat:41.28,lon:28.75},MAD:{country:"Spain",name:"Madrid",lat:40.47,lon:-3.56},BCN:{country:"Spain",name:"Barcelona",lat:41.30,lon:2.08},MUC:{country:"Germany",name:"Munich",lat:48.35,lon:11.79},ZRH:{country:"Switzerland",name:"Zurich",lat:47.46,lon:8.55},FCO:{country:"Italy",name:"Rome Fiumicino",lat:41.80,lon:12.25},VIE:{country:"Austria",name:"Vienna",lat:48.11,lon:16.57},CPH:{country:"Denmark",name:"Copenhagen",lat:55.62,lon:12.65},DUB:{country:"Ireland",name:"Dublin",lat:53.42,lon:-6.27},
-    DXB:{country:"United Arab Emirates",name:"Dubai",lat:25.25,lon:55.36},DOH:{country:"Qatar",name:"Doha",lat:25.27,lon:51.61},AUH:{country:"United Arab Emirates",name:"Abu Dhabi",lat:24.43,lon:54.65},DEL:{country:"India",name:"Delhi",lat:28.56,lon:77.10},BOM:{country:"India",name:"Mumbai",lat:19.09,lon:72.87},SIN:{country:"Singapore",name:"Singapore Changi",lat:1.36,lon:103.99},HKG:{country:"China",name:"Hong Kong",lat:22.31,lon:113.92},ICN:{country:"South Korea",name:"Seoul Incheon",lat:37.46,lon:126.44},NRT:{country:"Japan",name:"Tokyo Narita",lat:35.77,lon:140.39},HND:{country:"Japan",name:"Tokyo Haneda",lat:35.55,lon:139.78},BKK:{country:"Thailand",name:"Bangkok",lat:13.69,lon:100.75},KUL:{country:"Malaysia",name:"Kuala Lumpur",lat:2.75,lon:101.71},TPE:{country:"China",name:"Taipei Taoyuan",lat:25.08,lon:121.23},TSA:{country:"China",name:"Taipei Songshan",lat:25.07,lon:121.55},MFM:{country:"China",name:"Macau",lat:22.15,lon:113.59},
-    PEK:{country:"China",name:"Beijing Capital",lat:40.08,lon:116.58},PKX:{country:"China",name:"Beijing Daxing",lat:39.51,lon:116.41},PVG:{country:"China",name:"Shanghai Pudong",lat:31.14,lon:121.80},SHA:{country:"China",name:"Shanghai Hongqiao",lat:31.20,lon:121.34},SZX:{country:"China",name:"Shenzhen",lat:22.64,lon:113.81},CAN:{country:"China",name:"Guangzhou",lat:23.39,lon:113.31},HGH:{country:"China",name:"Hangzhou",lat:30.24,lon:120.43},CTU:{country:"China",name:"Chengdu Shuangliu",lat:30.58,lon:103.95},TFU:{country:"China",name:"Chengdu Tianfu",lat:30.32,lon:104.45},DLC:{country:"China",name:"Dalian",lat:38.97,lon:121.54},KMG:{country:"China",name:"Kunming",lat:25.10,lon:102.93},XMN:{country:"China",name:"Xiamen",lat:24.54,lon:118.13},CKG:{country:"China",name:"Chongqing",lat:29.72,lon:106.64},TAO:{country:"China",name:"Qingdao",lat:36.36,lon:120.09},WUH:{country:"China",name:"Wuhan",lat:30.78,lon:114.21},XIY:{country:"China",name:"Xi'an",lat:34.45,lon:108.75},YTY:{country:"China",name:"Yangzhou",lat:32.56,lon:119.72}
   };
 
   const LIVERY_CATEGORIES = {
@@ -375,45 +283,16 @@ Replace CONFIG.FEED_URL with your GitHub Pages JSON URL.
     }).format(new Date()).replace(",", "") + " CST";
   }
 
-  function flightRow(item) {
-    const altitude = item.altitude_m != null ? Math.round(Number(item.altitude_m)).toLocaleString() + " m" : "alt n/a";
-    const speed = item.speed_kmh != null ? Math.round(Number(item.speed_kmh)).toLocaleString() + " km/h" : "speed n/a";
-    const flight = item.flight || "LIVE";
-    const origin = item.origin || "---";
-    const destination = item.destination || "---";
-    const originInfo = getAirport(origin, item.origin_airport);
-    const destinationInfo = getAirport(destination, item.destination_airport);
-    const status = normalizeStatus(item.status);
-    const statusClass = status === "landed" ? " av-landed" : "";
-    return `
-      <div class="av-row">
-        <div class="av-flight">${esc(flight)}</div>
-        <div>
-          <div class="av-label">Livery / Aircraft</div>
-          <div class="av-main">${esc(item.livery || "Special Livery")}</div>
-          <div class="av-small">${esc(item.airline || "")} · ${esc(item.aircraft || "")} · ${esc(item.registration || "")}</div>
-        </div>
-        <div>
-          <div class="av-label">Live Route</div>
-          <div class="av-route">${esc(origin)} → ${esc(destination)}</div>
-          <div class="av-small">${esc(originInfo.name)} → ${esc(destinationInfo.name)} · ${esc(altitude)} · ${esc(speed)}</div>
-        </div>
-        <div>
-          <div class="av-label">Updated</div>
-          <div class="av-main">${formatTime(item.updated)} CST</div>
-          <span class="av-pill${statusClass}">${esc(status)}</span>
-        </div>
-      </div>`;
+  function airportLabel(item, field) {
+    const code = item[field] || "---";
+    const embedded = field === "origin" ? item.origin_airport : item.destination_airport;
+    const name = embedded && embedded.name ? embedded.name : code;
+    return code + (name && name !== code ? " · " + name : "");
   }
 
-  function normalizeStatus(value) {
-    const status = String(value || "en-route").trim().toLowerCase();
-    if (["landed", "arrived", "arrival", "arr", "on-ground", "onground"].indexOf(status) >= 0) return "landed";
-    return status || "en-route";
-  }
-
-  function isInFlight(item) {
-    return normalizeStatus(item.status) !== "landed";
+  function airportCountry(item, field) {
+    const embedded = field === "origin" ? item.origin_airport : item.destination_airport;
+    return (embedded && embedded.country) || "";
   }
 
   function normalizeLiveryCategory(item) {
@@ -425,66 +304,56 @@ Replace CONFIG.FEED_URL with your GitHub Pages JSON URL.
     return "other";
   }
 
-  function getAirport(code, embedded) {
-    const normalized = String(code || "").toUpperCase();
-    const known = AIRPORTS[normalized] || {};
-    return {
-      code: normalized,
-      name: (embedded && embedded.name) || known.name || normalized || "---",
-      country: (embedded && embedded.country) || known.country || "",
-      lat: Number((embedded && embedded.latitude) != null ? embedded.latitude : known.lat),
-      lon: Number((embedded && embedded.longitude) != null ? embedded.longitude : known.lon)
-    };
-  }
-
   function uniqueSorted(values) {
     return Array.from(new Set(values)).sort(function (a, b) { return String(a).localeCompare(String(b)); });
-  }
-
-  function applyFilters(items) {
-    return items.filter(function (item) {
-      const status = isInFlight(item) ? "in-flight" : "landed";
-      const origin = getAirport(item.origin, item.origin_airport);
-      const destination = getAirport(item.destination, item.destination_airport);
-      if (filterState.status !== "all" && filterState.status !== status) return false;
-      if (filterState.liveryCategory !== "all" && normalizeLiveryCategory(item) !== filterState.liveryCategory) return false;
-      if (filterState.originCountry !== "all" && origin.country !== filterState.originCountry) return false;
-      if (filterState.originAirport !== "all" && origin.code !== filterState.originAirport) return false;
-      if (filterState.destinationCountry !== "all" && destination.country !== filterState.destinationCountry) return false;
-      if (filterState.destinationAirport !== "all" && destination.code !== filterState.destinationAirport) return false;
-      return true;
-    });
   }
 
   function optionHtml(value, label, selectedValue) {
     return `<option value="${esc(value)}"${value === selectedValue ? " selected" : ""}>${esc(label)}</option>`;
   }
 
+  function applyFilters(items) {
+    return items.filter(function (item) {
+      if (filterState.direction !== "all" && item.direction !== filterState.direction) return false;
+      if (filterState.country !== "all" && airportCountry(item, "origin") !== filterState.country && airportCountry(item, "destination") !== filterState.country) return false;
+      if (filterState.airline !== "all" && item.airline !== filterState.airline) return false;
+      if (filterState.liveryCategory !== "all" && normalizeLiveryCategory(item) !== filterState.liveryCategory) return false;
+      if (filterState.originAirport !== "all" && item.origin !== filterState.originAirport) return false;
+      if (filterState.destinationAirport !== "all" && item.destination !== filterState.destinationAirport) return false;
+      return true;
+    });
+  }
+
   function filterControls(items) {
-    const origins = items.map(function (item) { return getAirport(item.origin, item.origin_airport); }).filter(function (airport) { return airport.code; });
-    const destinations = items.map(function (item) { return getAirport(item.destination, item.destination_airport); }).filter(function (airport) { return airport.code; });
-    const originCountries = uniqueSorted(origins.map(function (airport) { return airport.country; }).filter(Boolean));
-    const destinationCountries = uniqueSorted(destinations.map(function (airport) { return airport.country; }).filter(Boolean));
-    const originAirports = uniqueSorted(origins.filter(function (airport) {
-      return filterState.originCountry === "all" || airport.country === filterState.originCountry;
-    }).map(function (airport) { return airport.code + "|" + airport.name; }));
-    const destinationAirports = uniqueSorted(destinations.filter(function (airport) {
-      return filterState.destinationCountry === "all" || airport.country === filterState.destinationCountry;
-    }).map(function (airport) { return airport.code + "|" + airport.name; }));
+    const countries = uniqueSorted(items.flatMap(function (item) {
+      return [airportCountry(item, "origin"), airportCountry(item, "destination")];
+    }).filter(Boolean));
+    const airlines = uniqueSorted(items.map(function (item) { return item.airline; }).filter(Boolean));
+    const origins = uniqueSorted(items.map(function (item) { return item.origin ? item.origin + "|" + airportLabel(item, "origin") : ""; }).filter(Boolean));
+    const destinations = uniqueSorted(items.map(function (item) { return item.destination ? item.destination + "|" + airportLabel(item, "destination") : ""; }).filter(Boolean));
+
     return `
       <div class="av-controls">
         <label class="av-filter">
-          <div class="av-label">Coverage</div>
-          <select data-av-filter="coverage">
-            ${Object.keys(CONFIG.FEEDS).map(function (key) { return optionHtml(key, CONFIG.FEEDS[key].label, filterState.coverage); }).join("")}
+          <div class="av-label">Direction</div>
+          <select data-av-filter="direction">
+            ${optionHtml("all", "All HGH flights", filterState.direction)}
+            ${optionHtml("arrival", "Arrivals to HGH", filterState.direction)}
+            ${optionHtml("departure", "Departures from HGH", filterState.direction)}
           </select>
         </label>
         <label class="av-filter">
-          <div class="av-label">Status</div>
-          <select data-av-filter="status">
-            ${optionHtml("all", "All status", filterState.status)}
-            ${optionHtml("in-flight", "In flight", filterState.status)}
-            ${optionHtml("landed", "Landed today", filterState.status)}
+          <div class="av-label">Country</div>
+          <select data-av-filter="country">
+            ${optionHtml("all", "All countries", filterState.country)}
+            ${countries.map(function (country) { return optionHtml(country, country, filterState.country); }).join("")}
+          </select>
+        </label>
+        <label class="av-filter">
+          <div class="av-label">Airline</div>
+          <select data-av-filter="airline">
+            ${optionHtml("all", "All airlines", filterState.airline)}
+            ${airlines.map(function (airline) { return optionHtml(airline, airline, filterState.airline); }).join("")}
           </select>
         </label>
         <label class="av-filter">
@@ -495,96 +364,78 @@ Replace CONFIG.FEED_URL with your GitHub Pages JSON URL.
           </select>
         </label>
         <label class="av-filter">
-          <div class="av-label">Origin Country</div>
-          <select data-av-filter="originCountry">
-            ${optionHtml("all", "All origin countries", filterState.originCountry)}
-            ${originCountries.map(function (country) { return optionHtml(country, country, filterState.originCountry); }).join("")}
-          </select>
-        </label>
-        <label class="av-filter">
-          <div class="av-label">Origin Airport</div>
+          <div class="av-label">Origin</div>
           <select data-av-filter="originAirport">
-            ${optionHtml("all", "All origin airports", filterState.originAirport)}
-            ${originAirports.map(function (airport) {
-              const parts = airport.split("|");
-              return optionHtml(parts[0], parts[0] + " · " + parts.slice(1).join("|"), filterState.originAirport);
+            ${optionHtml("all", "All origins", filterState.originAirport)}
+            ${origins.map(function (value) {
+              const parts = value.split("|");
+              return optionHtml(parts[0], parts.slice(1).join("|"), filterState.originAirport);
             }).join("")}
           </select>
         </label>
         <label class="av-filter">
-          <div class="av-label">Arrival Country</div>
-          <select data-av-filter="destinationCountry">
-            ${optionHtml("all", "All arrival countries", filterState.destinationCountry)}
-            ${destinationCountries.map(function (country) { return optionHtml(country, country, filterState.destinationCountry); }).join("")}
-          </select>
-        </label>
-        <label class="av-filter">
-          <div class="av-label">Arrival Airport</div>
+          <div class="av-label">Arrival</div>
           <select data-av-filter="destinationAirport">
-            ${optionHtml("all", "All arrival airports", filterState.destinationAirport)}
-            ${destinationAirports.map(function (airport) {
-              const parts = airport.split("|");
-              return optionHtml(parts[0], parts[0] + " · " + parts.slice(1).join("|"), filterState.destinationAirport);
+            ${optionHtml("all", "All arrivals", filterState.destinationAirport)}
+            ${destinations.map(function (value) {
+              const parts = value.split("|");
+              return optionHtml(parts[0], parts.slice(1).join("|"), filterState.destinationAirport);
             }).join("")}
           </select>
         </label>
       </div>`;
   }
 
-  function projectAirport(code, embedded) {
-    const airport = getAirport(code, embedded);
-    if (!Number.isFinite(airport.lat) || !Number.isFinite(airport.lon)) return null;
-    const x = ((airport.lon + 180) / 360) * 940 + 30;
-    const clampedLat = Math.max(-60, Math.min(82, airport.lat));
-    const y = ((82 - clampedLat) / 142) * 320 + 30;
-    return { x: Math.max(20, Math.min(980, x)), y: Math.max(20, Math.min(360, y)), airport: airport };
+  function summaryBar(items, filtered) {
+    const arrivalCount = items.filter(function (item) { return item.direction === "arrival"; }).length;
+    const departureCount = items.filter(function (item) { return item.direction === "departure"; }).length;
+    return `
+      <div class="av-summary">
+        <div class="av-stat av-stat-live">
+          <div class="av-label">Live Livery Count</div>
+          <div class="av-stat-value">${items.length}</div>
+        </div>
+        <div class="av-stat">
+          <div class="av-label">Shown</div>
+          <div class="av-stat-value">${filtered.length}</div>
+        </div>
+        <div class="av-stat">
+          <div class="av-label">Arrivals</div>
+          <div class="av-stat-value">${arrivalCount}</div>
+        </div>
+        <div class="av-stat">
+          <div class="av-label">Departures</div>
+          <div class="av-stat-value">${departureCount}</div>
+        </div>
+      </div>`;
   }
 
-  function routeMap(items) {
-    const routes = items.filter(isInFlight).map(function (item) {
-      const origin = projectAirport(item.origin, item.origin_airport);
-      const destination = projectAirport(item.destination, item.destination_airport);
-      if (!origin || !destination) return null;
-      return { item: item, origin: origin, destination: destination };
-    }).filter(Boolean);
-
-    if (!routes.length) {
-      return `<div class="av-map"><div class="av-map-empty">No in-flight route with mapped city coordinates in this selection.</div></div>`;
-    }
-
-    const grid = [-120, -60, 0, 60, 120].map(function (lon) {
-      const x = ((lon + 180) / 360) * 940 + 30;
-      return `<line class="av-map-grid" x1="${x}" y1="30" x2="${x}" y2="350"></line>`;
-    }).join("") + [-40, 0, 40, 80].map(function (lat) {
-      const y = ((82 - lat) / 142) * 320 + 30;
-      return `<line class="av-map-grid" x1="30" y1="${y}" x2="970" y2="${y}"></line>`;
-    }).join("");
-    const lines = routes.map(function (route) {
-      const mx = (route.origin.x + route.destination.x) / 2;
-      const my = Math.min(route.origin.y, route.destination.y) - 28;
-      return `<path class="av-route-line" d="M ${route.origin.x.toFixed(1)} ${route.origin.y.toFixed(1)} Q ${mx.toFixed(1)} ${my.toFixed(1)} ${route.destination.x.toFixed(1)} ${route.destination.y.toFixed(1)}"></path>`;
-    }).join("");
-    const dots = routes.map(function (route) {
-      const labelX = Math.min(940, route.destination.x + 8);
-      return `
-        <circle class="av-route-dot" cx="${route.origin.x.toFixed(1)}" cy="${route.origin.y.toFixed(1)}" r="4.5"></circle>
-        <circle class="av-route-plane" cx="${route.destination.x.toFixed(1)}" cy="${route.destination.y.toFixed(1)}" r="5.5"></circle>
-        <text class="av-map-label" x="${labelX.toFixed(1)}" y="${(route.destination.y - 8).toFixed(1)}">${esc(route.item.destination || "")}</text>`;
-    }).join("");
-
+  function flightRow(item) {
+    const isArrival = item.direction === "arrival";
+    const directionLabel = isArrival ? "Arrival to HGH" : "Departure from HGH";
+    const directionClass = isArrival ? " av-arrival" : "";
+    const scheduled = item.scheduled_time || (isArrival ? item.scheduled_arrival : item.scheduled_departure);
     return `
-      <div class="av-map">
-        <svg viewBox="0 0 1000 380" role="img" aria-label="In-flight route map">
-          ${grid}
-          <path class="av-map-land" d="M95 118 L152 82 L218 98 L260 156 L236 210 L164 224 L102 190 Z"></path>
-          <path class="av-map-land" d="M238 226 L298 256 L326 318 L286 350 L222 312 Z"></path>
-          <path class="av-map-land" d="M428 104 L518 78 L604 116 L610 194 L546 230 L442 196 Z"></path>
-          <path class="av-map-land" d="M574 136 L686 116 L798 146 L894 206 L846 274 L724 262 L642 210 Z"></path>
-          <path class="av-map-land" d="M532 218 L594 246 L604 332 L548 354 L506 300 Z"></path>
-          <path class="av-map-land" d="M806 276 L890 298 L914 340 L836 348 Z"></path>
-          ${lines}
-          ${dots}
-        </svg>
+      <div class="av-row">
+        <div>
+          <div class="av-flight">${esc(item.flight || "SCHED")}</div>
+          <span class="av-pill${directionClass}">${esc(directionLabel)}</span>
+        </div>
+        <div>
+          <div class="av-label">Livery / Aircraft</div>
+          <div class="av-main">${esc(item.livery || "Special Livery")}</div>
+          <div class="av-small">${esc(item.airline || "")} · ${esc(item.aircraft || "")} · ${esc(item.registration || "")}</div>
+        </div>
+        <div>
+          <div class="av-label">Planned Route</div>
+          <div class="av-route">${esc(item.origin || "---")} → ${esc(item.destination || "---")}</div>
+          <div class="av-small">${esc(airportLabel(item, "origin"))} → ${esc(airportLabel(item, "destination"))}</div>
+        </div>
+        <div>
+          <div class="av-label">Scheduled</div>
+          <div class="av-main">${formatTime(scheduled)} CST</div>
+          <div class="av-small">${esc(item.status || "scheduled")}</div>
+        </div>
       </div>`;
   }
 
@@ -593,9 +444,9 @@ Replace CONFIG.FEED_URL with your GitHub Pages JSON URL.
       <div class="av-card">
         <div class="av-header">
           <div>
-            <div class="av-kicker">AeroView Live Radar</div>
-            <h2 class="av-title">SPECIAL LIVERY LIVE RADAR</h2>
-            <p class="av-subtitle">亚美欧主要大型机场与中国机场特殊涂装飞机追踪</p>
+            <div class="av-kicker">AeroView HGH Schedule</div>
+            <h2 class="av-title">HANGZHOU SPECIAL LIVERY LIST</h2>
+            <p class="av-subtitle">本日杭州进出港计划航班中，已给出注册号并命中特殊涂装库的航班</p>
           </div>
           <div class="av-time">${formatNow()}</div>
         </div>
@@ -608,49 +459,33 @@ Replace CONFIG.FEED_URL with your GitHub Pages JSON URL.
   function bindFilters(items, meta) {
     root.querySelectorAll("[data-av-filter]").forEach(function (select) {
       select.addEventListener("change", function () {
-        const name = select.getAttribute("data-av-filter");
-        filterState[name] = select.value;
-        if (name === "coverage") {
-          filterState.status = "all";
-          filterState.liveryCategory = "all";
-          filterState.originCountry = "all";
-          filterState.originAirport = "all";
-          filterState.destinationCountry = "all";
-          filterState.destinationAirport = "all";
-          update();
-          return;
-        }
-        if (name === "originCountry") filterState.originAirport = "all";
-        if (name === "destinationCountry") filterState.destinationAirport = "all";
+        filterState[select.getAttribute("data-av-filter")] = select.value;
         renderFeed(items, meta);
       });
     });
   }
 
   function renderLoading() {
-    shell("Loading GitHub JSON feed...", "av-warn", `<div class="av-empty"><strong>Loading live feed</strong><span>正在读取公开 JSON 数据。</span></div>`, "GitHub Pages JSON mode", "Auto refresh enabled");
+    shell("Loading Hangzhou schedule feed...", "av-warn", `<div class="av-empty"><strong>Loading schedule feed</strong><span>正在读取公开 JSON 数据。</span></div>`, "GitHub Pages JSON mode", "Auto refresh enabled");
   }
 
   function renderError(message) {
-    shell("JSON feed unavailable", "av-error", `<div class="av-empty"><strong>Feed loading failed</strong><span>${esc(message)}</span></div>`, "请检查 CONFIG.FEED_URL 是否已替换为真实地址", "Refresh: " + CONFIG.REFRESH_MINUTES + " min");
+    shell("Schedule feed unavailable", "av-error", `<div class="av-empty"><strong>Feed loading failed</strong><span>${esc(message)}</span></div>`, "请检查 GitHub Pages feed 地址", "Refresh: " + CONFIG.REFRESH_MINUTES + " min");
   }
 
   function renderEmpty(meta) {
-    const generated = meta && meta.generated_at ? "Last generated: " + formatTime(meta.generated_at) + " CST" : "No matched aircraft in current live feed";
-    shell("Live feed loaded · No current special livery match", "av-warn", `<div class="av-empty"><strong>No matched aircraft right now</strong><span>当前实时数据中没有匹配到目标机场相关特殊涂装飞机，或 API 未返回注册号。</span></div>`, generated, "Refresh: " + CONFIG.REFRESH_MINUTES + " min");
+    const generated = meta && meta.generated_at ? "Feed generated: " + formatTime(meta.generated_at) + " CST" : "No matched schedule rows";
+    shell("Schedule loaded · No Hangzhou special livery match", "av-warn", `<div class="av-empty"><strong>No matched aircraft today</strong><span>今天杭州进出港计划中暂未发现已给出注册号且命中特殊涂装库的航班。</span></div>`, generated, "Only schedules with registration can match");
   }
 
   function renderFeed(items, meta) {
     const filtered = applyFilters(items);
-    const repeated = filtered.concat(filtered);
-    const duration = Math.max(22, filtered.length * 7);
-    const rows = repeated.map(flightRow).join("");
+    const rows = filtered.map(flightRow).join("");
     const generated = meta && meta.generated_at ? "Feed generated: " + formatTime(meta.generated_at) + " CST" : "GitHub JSON feed";
-    const countText = filtered.length + " shown / " + items.length + " today · Hover to pause";
-    const empty = `<div class="av-empty"><strong>No aircraft in this filter</strong><span>Try another status, airline, or livery category.</span></div>`;
-    const list = filtered.length ? `<div class="av-window"><div class="av-track" style="--av-scroll-duration:${duration}s">${rows}</div></div>` : empty;
-    const body = filterControls(items) + routeMap(filtered) + list;
-    shell("Live feed loaded · " + filtered.length + " of " + items.length + " special livery matches", "", body, generated, countText);
+    const dateText = meta && meta.schedule_date ? "Schedule date: " + meta.schedule_date : "Hangzhou HGH";
+    const list = filtered.length ? `<div class="av-list">${rows}</div>` : `<div class="av-empty"><strong>No aircraft in this filter</strong><span>Try another direction, airline, livery, origin, or arrival filter.</span></div>`;
+    const body = summaryBar(items, filtered) + filterControls(items) + list;
+    shell("Schedule feed loaded · " + filtered.length + " of " + items.length + " matches shown", "", body, generated, dateText);
     bindFilters(items, meta);
   }
 
@@ -662,16 +497,9 @@ Replace CONFIG.FEED_URL with your GitHub Pages JSON URL.
 
   async function update() {
     try {
-      const selectedFeed = CONFIG.FEEDS[filterState.coverage] || CONFIG.FEEDS.global;
-      if (!selectedFeed.feedUrl || selectedFeed.feedUrl.indexOf("YOUR_GITHUB_USERNAME") >= 0) {
-        renderError("请先把 CONFIG.FEED_URL 替换为 GitHub Pages 上的 special-livery-live.json 地址。");
-        return;
-      }
-      const feed = await fetchJson(selectedFeed.feedUrl);
+      const feed = await fetchJson(CONFIG.FEED_URL);
       let meta = null;
-      if (selectedFeed.metaUrl && selectedFeed.metaUrl.indexOf("YOUR_GITHUB_USERNAME") < 0) {
-        try { meta = await fetchJson(selectedFeed.metaUrl); } catch (e) { meta = null; }
-      }
+      try { meta = await fetchJson(CONFIG.META_URL); } catch (e) { meta = null; }
       if (!Array.isArray(feed)) throw new Error("Feed JSON must be an array");
       if (!feed.length) renderEmpty(meta);
       else renderFeed(feed, meta);
