@@ -1,0 +1,12 @@
+name = "aeroview-workflow-dispatcher"
+main = "aeroview-workflow-dispatcher.js"
+compatibility_date = "2026-05-26"
+
+[triggers]
+crons = ["0 0 * * *"]
+
+[vars]
+GITHUB_OWNER = "kuanyangdai-droid"
+GITHUB_REPO = "aeroview-live-feed"
+GITHUB_WORKFLOW = "update-feed.yml"
+GITHUB_REF = "main"
