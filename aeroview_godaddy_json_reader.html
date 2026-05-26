@@ -1,0 +1,348 @@
+<!--
+AeroView Special Livery Live Radar - GoDaddy JSON Reader Version
+Paste this whole block into a GoDaddy Custom HTML section.
+Replace CONFIG.FEED_URL with your GitHub Pages JSON URL.
+-->
+<div id="aeroview-live-radar-json"></div>
+<style>
+  #aeroview-live-radar-json {
+    --av-bg: #222426;
+    --av-panel: rgba(255, 255, 255, 0.055);
+    --av-panel-2: rgba(255, 255, 255, 0.095);
+    --av-line: rgba(255, 255, 255, 0.16);
+    --av-text: #f4f4f4;
+    --av-muted: rgba(255, 255, 255, 0.68);
+    --av-soft: rgba(255, 255, 255, 0.42);
+    --av-green: #61e6a3;
+    --av-gold: #d6bd78;
+    --av-red: #ff7b7b;
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: var(--av-text);
+    width: 100%;
+    max-width: 980px;
+    margin: 0 auto;
+  }
+  #aeroview-live-radar-json .av-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 18px;
+    background:
+      radial-gradient(circle at 100% 100%, rgba(97, 230, 163, 0.16), transparent 28%),
+      radial-gradient(circle at 0% 0%, rgba(214, 189, 120, 0.13), transparent 24%),
+      linear-gradient(135deg, #2d2d31, #1f2022 68%, #2b2c2e);
+    border: 1px solid rgba(255,255,255,0.14);
+    box-shadow: 0 22px 54px rgba(0,0,0,0.28);
+    padding: 22px 24px 18px;
+  }
+  #aeroview-live-radar-json .av-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 18px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--av-line);
+  }
+  #aeroview-live-radar-json .av-kicker {
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--av-muted);
+    font-size: 11px;
+    font-weight: 700;
+    margin-bottom: 5px;
+  }
+  #aeroview-live-radar-json .av-title {
+    margin: 0;
+    font-size: clamp(24px, 3.2vw, 36px);
+    line-height: 1.04;
+    letter-spacing: 0.02em;
+    font-weight: 800;
+  }
+  #aeroview-live-radar-json .av-subtitle {
+    margin: 7px 0 0;
+    color: var(--av-muted);
+    font-size: 14px;
+  }
+  #aeroview-live-radar-json .av-time {
+    flex: 0 0 auto;
+    border: 1px solid var(--av-line);
+    background: var(--av-panel);
+    border-radius: 999px;
+    padding: 9px 12px;
+    color: var(--av-text);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  #aeroview-live-radar-json .av-status {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin: 14px 0 12px;
+    color: var(--av-muted);
+    font-size: 13px;
+  }
+  #aeroview-live-radar-json .av-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 999px;
+    background: var(--av-green);
+    box-shadow: 0 0 0 5px rgba(97, 230, 163, 0.12), 0 0 18px rgba(97, 230, 163, 0.75);
+    flex: 0 0 auto;
+  }
+  #aeroview-live-radar-json .av-dot.av-warn {
+    background: var(--av-gold);
+    box-shadow: 0 0 0 5px rgba(214, 189, 120, 0.12), 0 0 18px rgba(214, 189, 120, 0.65);
+  }
+  #aeroview-live-radar-json .av-dot.av-error {
+    background: var(--av-red);
+    box-shadow: 0 0 0 5px rgba(255, 123, 123, 0.12), 0 0 18px rgba(255, 123, 123, 0.65);
+  }
+  #aeroview-live-radar-json .av-window {
+    position: relative;
+    height: 292px;
+    overflow: hidden;
+    border-radius: 14px;
+    border: 1px solid var(--av-line);
+    background: rgba(0,0,0,0.22);
+  }
+  #aeroview-live-radar-json .av-window:before,
+  #aeroview-live-radar-json .av-window:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 44px;
+    pointer-events: none;
+    z-index: 2;
+  }
+  #aeroview-live-radar-json .av-window:before { top: 0; background: linear-gradient(to bottom, rgba(20,20,22,0.95), transparent); }
+  #aeroview-live-radar-json .av-window:after { bottom: 0; background: linear-gradient(to top, rgba(20,20,22,0.95), transparent); }
+  #aeroview-live-radar-json .av-track {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 12px;
+    animation: av-scroll var(--av-scroll-duration, 28s) linear infinite;
+  }
+  #aeroview-live-radar-json .av-window:hover .av-track { animation-play-state: paused; }
+  @keyframes av-scroll {
+    from { transform: translateY(0); }
+    to { transform: translateY(-50%); }
+  }
+  #aeroview-live-radar-json .av-row {
+    min-height: 76px;
+    display: grid;
+    grid-template-columns: 120px 1.35fr 1fr 130px;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.08), rgba(255,255,255,0.045));
+    border: 1px solid rgba(255,255,255,0.07);
+  }
+  #aeroview-live-radar-json .av-flight {
+    font-size: 21px;
+    font-weight: 850;
+    letter-spacing: 0.04em;
+  }
+  #aeroview-live-radar-json .av-label {
+    color: var(--av-soft);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 800;
+    margin-bottom: 3px;
+  }
+  #aeroview-live-radar-json .av-main { font-size: 15px; font-weight: 800; line-height: 1.22; }
+  #aeroview-live-radar-json .av-small { color: var(--av-muted); font-size: 12px; line-height: 1.35; margin-top: 2px; }
+  #aeroview-live-radar-json .av-route { font-size: 20px; font-weight: 850; letter-spacing: 0.05em; }
+  #aeroview-live-radar-json .av-pill {
+    display: inline-flex;
+    margin-top: 5px;
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: rgba(97,230,163,0.16);
+    color: var(--av-green);
+    font-size: 10px;
+    font-weight: 850;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  #aeroview-live-radar-json .av-empty {
+    height: 292px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 24px;
+    color: var(--av-muted);
+    border-radius: 14px;
+    border: 1px solid var(--av-line);
+    background: rgba(0,0,0,0.18);
+  }
+  #aeroview-live-radar-json .av-empty strong { color: var(--av-text); font-size: 18px; }
+  #aeroview-live-radar-json .av-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    margin-top: 12px;
+    color: var(--av-soft);
+    font-size: 11px;
+  }
+  @media (max-width: 760px) {
+    #aeroview-live-radar-json .av-card { padding: 18px; }
+    #aeroview-live-radar-json .av-header { flex-direction: column; }
+    #aeroview-live-radar-json .av-time { align-self: flex-start; }
+    #aeroview-live-radar-json .av-row {
+      grid-template-columns: 1fr;
+      gap: 8px;
+      min-height: 178px;
+    }
+    #aeroview-live-radar-json .av-window { height: 392px; }
+    #aeroview-live-radar-json .av-empty { height: 300px; }
+  }
+</style>
+<script>
+(function () {
+  const CONFIG = {
+    FEED_URL: "https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPO_NAME/special-livery-live.json",
+    META_URL: "https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPO_NAME/feed-meta.json",
+    REFRESH_MINUTES: 5,
+    TIME_ZONE: "Asia/Shanghai"
+  };
+
+  const root = document.getElementById("aeroview-live-radar-json");
+  if (!root) return;
+
+  function esc(value) {
+    return String(value == null ? "" : value).replace(/[&<>'"]/g, function (c) {
+      return {"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;","\"":"&quot;"}[c];
+    });
+  }
+
+  function formatTime(value) {
+    if (!value) return "--";
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return esc(value);
+    return new Intl.DateTimeFormat("en-US", {
+      timeZone: CONFIG.TIME_ZONE,
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+      month: "short",
+      day: "2-digit"
+    }).format(date).replace(",", "");
+  }
+
+  function formatNow() {
+    return new Intl.DateTimeFormat("en-US", {
+      timeZone: CONFIG.TIME_ZONE,
+      month: "short",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false
+    }).format(new Date()).replace(",", "") + " CST";
+  }
+
+  function flightRow(item) {
+    const altitude = item.altitude_m != null ? Math.round(Number(item.altitude_m)).toLocaleString() + " m" : "alt n/a";
+    const speed = item.speed_kmh != null ? Math.round(Number(item.speed_kmh)).toLocaleString() + " km/h" : "speed n/a";
+    const flight = item.flight || "LIVE";
+    const origin = item.origin || "---";
+    const destination = item.destination || "---";
+    const status = item.status || "en-route";
+    return `
+      <div class="av-row">
+        <div class="av-flight">${esc(flight)}</div>
+        <div>
+          <div class="av-label">Livery / Aircraft</div>
+          <div class="av-main">${esc(item.livery || "Special Livery")}</div>
+          <div class="av-small">${esc(item.airline || "")} · ${esc(item.aircraft || "")} · ${esc(item.registration || "")}</div>
+        </div>
+        <div>
+          <div class="av-label">Live Route</div>
+          <div class="av-route">${esc(origin)} → ${esc(destination)}</div>
+          <div class="av-small">${esc(altitude)} · ${esc(speed)}</div>
+        </div>
+        <div>
+          <div class="av-label">Updated</div>
+          <div class="av-main">${formatTime(item.updated)} CST</div>
+          <span class="av-pill">${esc(status)}</span>
+        </div>
+      </div>`;
+  }
+
+  function shell(statusText, dotClass, bodyHtml, footerLeft, footerRight) {
+    root.innerHTML = `
+      <div class="av-card">
+        <div class="av-header">
+          <div>
+            <div class="av-kicker">AeroView Live Radar</div>
+            <h2 class="av-title">SPECIAL LIVERY LIVE RADAR</h2>
+            <p class="av-subtitle">当前在飞且起飞地或目的地为中国重点机场的特殊涂装飞机</p>
+          </div>
+          <div class="av-time">${formatNow()}</div>
+        </div>
+        <div class="av-status"><span class="av-dot ${dotClass || ""}"></span><span>${esc(statusText)}</span></div>
+        ${bodyHtml}
+        <div class="av-footer"><span>${esc(footerLeft || "")}</span><span>${esc(footerRight || "")}</span></div>
+      </div>`;
+  }
+
+  function renderLoading() {
+    shell("Loading GitHub JSON feed...", "av-warn", `<div class="av-empty"><strong>Loading live feed</strong><span>正在读取公开 JSON 数据。</span></div>`, "GitHub Pages JSON mode", "Auto refresh enabled");
+  }
+
+  function renderError(message) {
+    shell("JSON feed unavailable", "av-error", `<div class="av-empty"><strong>Feed loading failed</strong><span>${esc(message)}</span></div>`, "请检查 CONFIG.FEED_URL 是否已替换为真实地址", "Refresh: " + CONFIG.REFRESH_MINUTES + " min");
+  }
+
+  function renderEmpty(meta) {
+    const generated = meta && meta.generated_at ? "Last generated: " + formatTime(meta.generated_at) + " CST" : "No matched aircraft in current live feed";
+    shell("Live feed loaded · No current special livery match", "av-warn", `<div class="av-empty"><strong>No matched aircraft right now</strong><span>当前实时数据中没有匹配到目标机场相关特殊涂装飞机，或 API 未返回注册号。</span></div>`, generated, "Refresh: " + CONFIG.REFRESH_MINUTES + " min");
+  }
+
+  function renderFeed(items, meta) {
+    const repeated = items.concat(items);
+    const duration = Math.max(22, items.length * 7);
+    const rows = repeated.map(flightRow).join("");
+    const generated = meta && meta.generated_at ? "Feed generated: " + formatTime(meta.generated_at) + " CST" : "GitHub JSON feed";
+    const countText = items.length + " matched aircraft · Hover to pause";
+    shell("Live feed loaded · " + items.length + " special livery match" + (items.length === 1 ? "" : "es"), "", `<div class="av-window"><div class="av-track" style="--av-scroll-duration:${duration}s">${rows}</div></div>`, generated, countText);
+  }
+
+  async function fetchJson(url) {
+    const response = await fetch(url + (url.indexOf("?") >= 0 ? "&" : "?") + "_=" + Date.now(), { cache: "no-store" });
+    if (!response.ok) throw new Error("HTTP " + response.status + " while loading " + url);
+    return response.json();
+  }
+
+  async function update() {
+    try {
+      if (!CONFIG.FEED_URL || CONFIG.FEED_URL.indexOf("YOUR_GITHUB_USERNAME") >= 0) {
+        renderError("请先把 CONFIG.FEED_URL 替换为 GitHub Pages 上的 special-livery-live.json 地址。");
+        return;
+      }
+      const feed = await fetchJson(CONFIG.FEED_URL);
+      let meta = null;
+      if (CONFIG.META_URL && CONFIG.META_URL.indexOf("YOUR_GITHUB_USERNAME") < 0) {
+        try { meta = await fetchJson(CONFIG.META_URL); } catch (e) { meta = null; }
+      }
+      if (!Array.isArray(feed)) throw new Error("Feed JSON must be an array");
+      if (!feed.length) renderEmpty(meta);
+      else renderFeed(feed, meta);
+    } catch (error) {
+      renderError(error && error.message ? error.message : String(error));
+    }
+  }
+
+  renderLoading();
+  update();
+  window.setInterval(update, Math.max(1, CONFIG.REFRESH_MINUTES) * 60 * 1000);
+})();
+</script>

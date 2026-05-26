@@ -1,0 +1,20 @@
+{
+  "generated_at": "2026-05-26T00:40:37Z",
+  "target_airports": [
+    "PVG",
+    "SHA",
+    "PEK",
+    "PKX",
+    "SZX",
+    "CAN",
+    "HGH",
+    "CTU",
+    "TFU",
+    "DLC"
+  ],
+  "record_count": 2,
+  "special_livery_count": 72,
+  "mode": "demo",
+  "errors": [],
+  "notes": "Feed contains only currently tracked flights whose registration number is returned by the API and exists in special_liveries.json."
+}
