@@ -10,11 +10,13 @@
     <string>/Users/daiandrew/Library/Application Support/AeroView/trigger_update_feed.sh</string>
   </array>
 
-  <key>StartInterval</key>
-  <integer>600</integer>
-
-  <key>RunAtLoad</key>
-  <true/>
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Hour</key>
+    <integer>8</integer>
+    <key>Minute</key>
+    <integer>0</integer>
+  </dict>
 
   <key>StandardOutPath</key>
   <string>/Users/daiandrew/Library/Logs/AeroView/dispatch.out.log</string>

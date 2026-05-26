@@ -1,74 +1,1938 @@
 [
-  {"registration":"B-6361","airline":"Air China","aircraft":"Airbus A321","livery":"Beautiful Sichuan","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-6365","airline":"Air China","aircraft":"Airbus A321","livery":"Beautiful Sichuan II","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-5390","airline":"Air China","aircraft":"Boeing 737-800","livery":"Gold Peony","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-2006","airline":"Air China","aircraft":"Boeing 777-300ER","livery":"Love China","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-5422","airline":"Air China","aircraft":"Boeing 737-800","livery":"Phoenix","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-5214","airline":"Air China","aircraft":"Boeing 737-700","livery":"Pink Peony","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-2032","airline":"Air China","aircraft":"Boeing 777-300ER","livery":"Star Alliance","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-5198","airline":"Air China","aircraft":"Boeing 737-800","livery":"Yellow Peony","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-5497","airline":"Air China","aircraft":"Boeing 737-800","livery":"Star Alliance","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-6725","airline":"Capital Airlines","aircraft":"Airbus A320","livery":"Meizhou Pomelo","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-5943","airline":"China Eastern Airlines","aircraft":"Airbus A330-200","livery":"eastday.com","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-6452","airline":"China Eastern Airlines","aircraft":"Airbus A319","livery":"Magnificent Qinghai","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-6458","airline":"China Eastern Airlines","aircraft":"Airbus A319","livery":"Magnificent Qinghai","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-9942","airline":"China Eastern Airlines","aircraft":"Airbus A320","livery":"Magnificent Qinghai","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-9943","airline":"China Eastern Airlines","aircraft":"Airbus A320","livery":"Magnificent Qinghai","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-6635","airline":"China Eastern Airlines","aircraft":"Airbus A320","livery":"Shanghai Disney Resort","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-1837","airline":"China Eastern Airlines","aircraft":"Airbus A321","livery":"SkyTeam","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-1838","airline":"China Eastern Airlines","aircraft":"Airbus A321","livery":"SkyTeam","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-8976","airline":"China Eastern Airlines","aircraft":"Airbus A321","livery":"SkyTeam","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-8977","airline":"China Eastern Airlines","aircraft":"Airbus A321","livery":"SkyTeam","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-5908","airline":"China Eastern Airlines","aircraft":"Airbus A330-200","livery":"SkyTeam","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-5949","airline":"China Eastern Airlines","aircraft":"Airbus A330-200","livery":"SkyTeam","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-6538","airline":"China Eastern Airlines","aircraft":"Airbus A330-200","livery":"SkyTeam","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-6507","airline":"China Eastern Airlines","aircraft":"Airbus A330-300","livery":"Shanghai Disney Resort","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-5243","airline":"China Eastern Airlines","aircraft":"Boeing 737-700","livery":"Yunnan Peacock","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-5276","airline":"China Eastern Airlines","aircraft":"Boeing 737-700","livery":"Yunnan Peacock","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-5293","airline":"China Eastern Airlines","aircraft":"Boeing 737-700","livery":"Yunnan Peacock","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-5802","airline":"China Eastern Airlines","aircraft":"Boeing 737-700","livery":"Yunnan Peacock","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-5807","airline":"China Eastern Airlines","aircraft":"Boeing 737-700","livery":"Yunnan Peacock","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-5809","airline":"China Eastern Airlines","aircraft":"Boeing 737-700","livery":"Yunnan Peacock","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-5817","airline":"China Eastern Airlines","aircraft":"Boeing 737-700","livery":"Yunnan Peacock","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-5819","airline":"China Eastern Airlines","aircraft":"Boeing 737-700","livery":"Yunnan Peacock","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-5828","airline":"China Eastern Airlines","aircraft":"Boeing 737-700","livery":"Yunnan Peacock","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-6141","airline":"China Eastern Airlines","aircraft":"Boeing 737-700","livery":"Yunnan Peacock","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-1788","airline":"China Eastern Airlines","aircraft":"Boeing 737-800","livery":"Yunnan Peacock","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-1789","airline":"China Eastern Airlines","aircraft":"Boeing 737-800","livery":"Yunnan Peacock","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-1790","airline":"China Eastern Airlines","aircraft":"Boeing 737-800","livery":"Yunnan Peacock","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-1792","airline":"China Eastern Airlines","aircraft":"Boeing 737-800","livery":"Yunnan Peacock","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-6143","airline":"China Eastern Airlines","aircraft":"Boeing 737-800","livery":"Yunnan Peacock","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-5448","airline":"China United Airlines","aircraft":"Boeing 737-800","livery":"Anshun Huangguoshu Waterfalls","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-5665","airline":"China United Airlines","aircraft":"Boeing 737-800","livery":"Baotou Dream Build","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-9982","airline":"West Air","aircraft":"Airbus A320","livery":"Maritime Silk Road - Quanzhou","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-1897","airline":"West Air","aircraft":"Airbus A320","livery":"U-Fly alliance","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-6761","airline":"Chongqing Airlines","aircraft":"Airbus A320","livery":"Beautiful In Chongqing","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-8987","airline":"Chongqing Airlines","aircraft":"Airbus A320","livery":"Chongqing Times","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-6576","airline":"Chongqing Airlines","aircraft":"Airbus A320","livery":"Happy Chongqing","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-8511","airline":"GX Airlines","aircraft":"Airbus A320","livery":"Cultural Jining (sticker)","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-1507","airline":"Kunming Airlines","aircraft":"Boeing 737-800","livery":"Dian Lake","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-1461","airline":"Kunming Airlines","aircraft":"Boeing 737-700","livery":"Tengchong","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-1931","airline":"Shandong Airlines","aircraft":"Boeing 737-800","livery":"DEEJ","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-1932","airline":"Shandong Airlines","aircraft":"Boeing 737-800","livery":"DEEJ","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-1982","airline":"Shandong Airlines","aircraft":"Boeing 737-800","livery":"DEEJ","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-1983","airline":"Shandong Airlines","aircraft":"Boeing 737-800","livery":"DEEJ","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-1987","airline":"Shandong Airlines","aircraft":"Boeing 737-800","livery":"DEEJ","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-7977","airline":"Shandong Airlines","aircraft":"Boeing 737-800","livery":"Hospitable Shandong/Jingzhi Wine","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-6296","airline":"Shenzhen Airlines","aircraft":"Airbus A320","livery":"Star Alliance","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-6297","airline":"Shenzhen Airlines","aircraft":"Airbus A320","livery":"Star Alliance","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-6388","airline":"Sichuan Airlines","aircraft":"Airbus A320","livery":"Chinese Dragon","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-6719","airline":"Sichuan Airlines","aircraft":"Airbus A320","livery":"Yunnan","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-9963","airline":"Tianjin Airlines","aircraft":"Airbus A320","livery":"5th East Asian Games","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-9983","airline":"Tianjin Airlines","aircraft":"Airbus A320","livery":"Tianjin Tour","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-1031","airline":"Tianjin Airlines","aircraft":"Airbus A320","livery":"Quan Yang Quan","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-5688","airline":"Xiamen Airlines","aircraft":"Boeing 737-800","livery":"100th Boeing","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-5633","airline":"Xiamen Airlines","aircraft":"Boeing 737-800","livery":"SkyTeam","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-1356","airline":"Xiamen Airlines","aircraft":"Boeing 787-9","livery":"United Nations Sustainability Development Goals","country":"China","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-MBM","airline":"Air Macau","aircraft":"Airbus A321","livery":"Macau Welcomes You","country":"China/Macau","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-18007","airline":"China Airlines","aircraft":"Boeing 777-300ER","livery":"Boeing","country":"China/Taiwan","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-18311","airline":"China Airlines","aircraft":"Airbus A330-300","livery":"SkyTeam","country":"China/Taiwan","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-16333","airline":"EVA Air","aircraft":"Airbus A330-300","livery":"Hello Kitty - Sanrio Characters","country":"China/Taiwan","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-16722","airline":"EVA Air","aircraft":"Boeing 777-300ER","livery":"Hello Kitty - My Melody and Kuromi","country":"China/Taiwan","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-16332","airline":"EVA Air","aircraft":"Airbus A330-300","livery":"Sanrio Joyful Dream","country":"China/Taiwan","source":"AirportWebcams Special Liveries"},
-  {"registration":"B-16715","airline":"EVA Air","aircraft":"Boeing 777-300ER","livery":"Star Alliance","country":"China/Taiwan","source":"AirportWebcams Special Liveries"}
+  {
+    "registration": "B-2006",
+    "airline": "Air China",
+    "aircraft": "Boeing 777-300ER",
+    "livery": "Love China",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-2032",
+    "airline": "Air China",
+    "aircraft": "Boeing B777-300ER",
+    "livery": "Star Alliance",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-2035",
+    "airline": "Air China",
+    "aircraft": "Boeing B777-300ER",
+    "livery": "Smiling China",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-2047",
+    "airline": "Air China",
+    "aircraft": "Boeing B777-300ER",
+    "livery": "50 Years of Chinese-French Diplomatic Relations",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-308M",
+    "airline": "Air China",
+    "aircraft": "Airbus A350-900",
+    "livery": "Star Alliance",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-5198",
+    "airline": "Air China",
+    "aircraft": "Boeing B737-800",
+    "livery": "Yellow Peony",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-5211",
+    "airline": "Air China",
+    "aircraft": "Boeing B737-700",
+    "livery": "Pink Peony",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-5214",
+    "airline": "Air China",
+    "aircraft": "Boeing B737-700",
+    "livery": "Pink Peony",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-5390",
+    "airline": "Air China",
+    "aircraft": "Boeing B737-800",
+    "livery": "Gold Peony",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-5422",
+    "airline": "Air China",
+    "aircraft": "Boeing B737-800",
+    "livery": "Phoenix",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-5425",
+    "airline": "Air China",
+    "aircraft": "Boeing B737-800",
+    "livery": "2022 Beijing Olypmic WInter Games",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-5497",
+    "airline": "Air China",
+    "aircraft": "Boeing B737-800",
+    "livery": "Expo 2019 Beijing",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-5977",
+    "airline": "Air China",
+    "aircraft": "Airbus A330-300",
+    "livery": "50th A330 for Air China Sticker",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-6071",
+    "airline": "Air China",
+    "aircraft": "Airbus A330-200",
+    "livery": "Jinli",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-6075",
+    "airline": "Air China",
+    "aircraft": "Airbus A330-200",
+    "livery": "Star Alliance",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-6076",
+    "airline": "Air China",
+    "aircraft": "Airbus A330-200",
+    "livery": "Star Alliance",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-6091",
+    "airline": "Air China",
+    "aircraft": "Airbus A330-200",
+    "livery": "Star Alliance",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-6093",
+    "airline": "Air China",
+    "aircraft": "Airbus A330-200",
+    "livery": "Star Alliance",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-6361",
+    "airline": "Air China",
+    "aircraft": "Airbus A321-200",
+    "livery": "Beautiful Sichuan",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-6365",
+    "airline": "Air China",
+    "aircraft": "Airbus A321-200",
+    "livery": "Beautiful Sichuan",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-6383",
+    "airline": "Air China",
+    "aircraft": "Airbus A321-200",
+    "livery": "Star Alliance",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-6610",
+    "airline": "Air China",
+    "aircraft": "Airbus A320-200",
+    "livery": "Plum Blossom / Splendid Hubei (锦绣湖北)",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-5226",
+    "airline": "Air China Inner Mongolia",
+    "aircraft": "Boeing B737-700",
+    "livery": "Tianjiao Inner Mongolia",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-1037",
+    "airline": "Air Guilin",
+    "aircraft": "Airbus A320-200",
+    "livery": "Mao'er Spring (猫儿山泉)",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-1039",
+    "airline": "Air Guilin",
+    "aircraft": "Airbus A320-200",
+    "livery": "Guilin Rice Noodles (桂林米粉)",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-1040",
+    "airline": "Air Guilin",
+    "aircraft": "Airbus A320-200",
+    "livery": "Two Rivers and Four Lakes: Elephant Trunk Hill Scenic Area (两江四湖·象山景区)",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-6192",
+    "airline": "Air Guilin",
+    "aircraft": "Airbus A319-100",
+    "livery": "Guilin",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-1621",
+    "airline": "Beijing Capital Airlines",
+    "aircraft": "Airbus A320-200",
+    "livery": "vip.com",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-6725",
+    "airline": "Beijing Capital Airlines",
+    "aircraft": "Airbus A320-200",
+    "livery": "Paul Frank",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-6859",
+    "airline": "Beijing Capital Airlines",
+    "aircraft": "Airbus A320-200",
+    "livery": "HNA Telecom (海航通信)",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-6958",
+    "airline": "Beijing Capital Airlines",
+    "aircraft": "Airbus A320-200",
+    "livery": "Bestune T99",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-8549",
+    "airline": "Beijing Capital Airlines",
+    "aircraft": "Airbus A330-200",
+    "livery": "Tangla (唐拉雅秀号) Sticker",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-8550",
+    "airline": "Beijing Capital Airlines",
+    "aircraft": "Airbus A330-200",
+    "livery": "Tuniu Sticker",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-8981",
+    "airline": "Beijing Capital Airlines",
+    "aircraft": "Airbus A330-200",
+    "livery": "Beijing Daxing (北京大兴号)",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-603P",
+    "airline": "Chengdu",
+    "aircraft": "Comac ARJ21-700",
+    "livery": "Chinese Dream",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-1316",
+    "airline": "China Eastern Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "Duffy Friendship Express (达菲·联萌号)",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-1317",
+    "airline": "China Eastern Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "Shanghai Disney Resort: Frozen",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-1609",
+    "airline": "China Eastern Airlines",
+    "aircraft": "Airbus A320-200",
+    "livery": "Flying Apsaras / Beautiful Gansu (绚丽甘肃)",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-1788",
+    "airline": "China Eastern Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "Yunnan Peacock (orange)",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-1789",
+    "airline": "China Eastern Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "Yunnan Peacock (orange)",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-1790",
+    "airline": "China Eastern Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "Yunnan Peacock (orange)",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-1791",
+    "airline": "China Eastern Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "Yunnan Peacock (orange)",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-1792",
+    "airline": "China Eastern Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "Yunnan Peacock (orange)",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-1837",
+    "airline": "China Eastern Airlines",
+    "aircraft": "Airbus A321-200",
+    "livery": "Skyteam",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-1838",
+    "airline": "China Eastern Airlines",
+    "aircraft": "Airbus A321-200",
+    "livery": "Skyteam",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-1981",
+    "airline": "China Eastern Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "Skyteam",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-2002",
+    "airline": "China Eastern Airlines",
+    "aircraft": "Boeing B777-300ER",
+    "livery": "China International Import Expo",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-306F",
+    "airline": "China Eastern Airlines",
+    "aircraft": "Airbus A320neo",
+    "livery": "\"We ❤ u 8888\" sticker",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-323H",
+    "airline": "China Eastern Airlines",
+    "aircraft": "Airbus A350-900",
+    "livery": "\"1st A350 delivered from China\" sticker",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-5243",
+    "airline": "China Eastern Airlines",
+    "aircraft": "Boeing B737-700",
+    "livery": "Yunnan Peacock (orange)",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-5276",
+    "airline": "China Eastern Airlines",
+    "aircraft": "Boeing B737-700",
+    "livery": "Yunnan Peacock (orange)",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-5293",
+    "airline": "China Eastern Airlines",
+    "aircraft": "Boeing B737-700",
+    "livery": "Yunnan Peacock (orange)",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-5756",
+    "airline": "China Eastern Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "\"1,000th Boeing delivered to China\" sticker",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-5802",
+    "airline": "China Eastern Airlines",
+    "aircraft": "Boeing B737-700",
+    "livery": "Yunnan Peacock (orange)",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-5807",
+    "airline": "China Eastern Airlines",
+    "aircraft": "Boeing B737-700",
+    "livery": "Yunnan Peacock (orange)",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-5809",
+    "airline": "China Eastern Airlines",
+    "aircraft": "Boeing B737-700",
+    "livery": "Yunnan Peacock (orange)",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-5817",
+    "airline": "China Eastern Airlines",
+    "aircraft": "Boeing B737-700",
+    "livery": "Yunnan Peacock (orange)",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-5819",
+    "airline": "China Eastern Airlines",
+    "aircraft": "Boeing B737-700",
+    "livery": "Yunnan Peacock (orange)",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-5828",
+    "airline": "China Eastern Airlines",
+    "aircraft": "Boeing B737-700",
+    "livery": "Yunnan Peacock (orange)",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-5902",
+    "airline": "China Eastern Airlines",
+    "aircraft": "Airbus A330-200",
+    "livery": "Greenland Group",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-5908",
+    "airline": "China Eastern Airlines",
+    "aircraft": "Airbus A330-200",
+    "livery": "Skyteam",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-5931",
+    "airline": "China Eastern Airlines",
+    "aircraft": "Airbus A330-200",
+    "livery": "People's Daily Online",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-5942",
+    "airline": "China Eastern Airlines",
+    "aircraft": "Airbus A330-200",
+    "livery": "\"60th Anniversary\" sticker",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-5943",
+    "airline": "China Eastern Airlines",
+    "aircraft": "Airbus A330-200",
+    "livery": "eastday.com",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-5949",
+    "airline": "China Eastern Airlines",
+    "aircraft": "Airbus A330-200",
+    "livery": "Skyteam",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-5976",
+    "airline": "China Eastern Airlines",
+    "aircraft": "Airbus A330-300",
+    "livery": "Shanghai Disney Resort: Toy Story",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-6141",
+    "airline": "China Eastern Airlines",
+    "aircraft": "Boeing B737-700",
+    "livery": "Yunnan Peacock (orange)",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-6143",
+    "airline": "China Eastern Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "Yunnan Peacock (orange)",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-6371",
+    "airline": "China Eastern Airlines",
+    "aircraft": "Airbus A320-200",
+    "livery": "Flying Apsaras / Beautiful Gansu (绚丽甘肃)",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-6452",
+    "airline": "China Eastern Airlines",
+    "aircraft": "Airbus A319-100",
+    "livery": "Magnificent Qinghai",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-6458",
+    "airline": "China Eastern Airlines",
+    "aircraft": "Airbus A319-100",
+    "livery": "Magnificent Qinghai",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-6507",
+    "airline": "China Eastern Airlines",
+    "aircraft": "Airbus A330-300",
+    "livery": "Shanghai Disney Resort: Minnie and Mickey Mouse",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-6538",
+    "airline": "China Eastern Airlines",
+    "aircraft": "Airbus A330-200",
+    "livery": "Skyteam",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-6635",
+    "airline": "China Eastern Airlines",
+    "aircraft": "Airbus A320-200",
+    "livery": "Shanghai Disney Resort: Minnie and Mickey Mouse",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-6873",
+    "airline": "China Eastern Airlines",
+    "aircraft": "Airbus A320-200",
+    "livery": "Beautiful Gansu",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-8231",
+    "airline": "China Eastern Airlines",
+    "aircraft": "Airbus A330-200",
+    "livery": "\"50th A330 for China Eastern\" sticker",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-8976",
+    "airline": "China Eastern Airlines",
+    "aircraft": "Airbus A321-200",
+    "livery": "Skyteam",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-8977",
+    "airline": "China Eastern Airlines",
+    "aircraft": "Airbus A321-200",
+    "livery": "Skyteam",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-9942",
+    "airline": "China Eastern Airlines",
+    "aircraft": "Airbus A320-200",
+    "livery": "Magnificent Qinghai",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-9943",
+    "airline": "China Eastern Airlines",
+    "aircraft": "Airbus A320-200",
+    "livery": "Magnificent Qinghai",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-8695",
+    "airline": "China Express Airlines",
+    "aircraft": "Airbus A320-200",
+    "livery": "Courtesy Quzhou",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-1168",
+    "airline": "China Southern Airlines",
+    "aircraft": "Boeing B787-9",
+    "livery": "787th Boeing 787",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-1520",
+    "airline": "China Southern Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "Mona Lisa Tiles Sticker",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-1979",
+    "airline": "China Southern Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "Hometown Henan",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-5940",
+    "airline": "China Southern Airlines",
+    "aircraft": "Airbus A330-300",
+    "livery": "China International Import Expo",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-6068",
+    "airline": "China Southern Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "Guizhou",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-6069",
+    "airline": "China Southern Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "Guizhou",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-8870",
+    "airline": "China Southern Airlines",
+    "aircraft": "Airbus A330-300",
+    "livery": "Guangdong Lychee",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-1750",
+    "airline": "China United Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "City of Lianyungang",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-5448",
+    "airline": "China United Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "Anshun Huangguoshu Waterfalls",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-5470",
+    "airline": "China United Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "City of Rizhao",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-5471",
+    "airline": "China United Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "Qingyang Apple Manor",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-5665",
+    "airline": "China United Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "Baotou Dream Build",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-7561",
+    "airline": "China United Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "Xingyi Million Peak Forest",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-1897",
+    "airline": "China West Air",
+    "aircraft": "Airbus A320-200",
+    "livery": "U-FLY Alliance",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-9949",
+    "airline": "China West Air",
+    "aircraft": "Airbus A320-200",
+    "livery": "Pand-Auto",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-9982",
+    "airline": "China West Air",
+    "aircraft": "Airbus A320-200",
+    "livery": "Happy Valley",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-6576",
+    "airline": "Chongqing Airlines",
+    "aircraft": "Airbus A320-200",
+    "livery": "Happy Chongqing (幸福重庆)",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-6761",
+    "airline": "Chongqing Airlines",
+    "aircraft": "Airbus A320-200",
+    "livery": "Beautiful in Chongqing",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-8987",
+    "airline": "Chongqing Airlines",
+    "aircraft": "Airbus A320-200",
+    "livery": "Chongqing Times",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-8511",
+    "airline": "GX Airlines",
+    "aircraft": "Airbus A320-200",
+    "livery": "Green City NanNing",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-8655",
+    "airline": "GX Airlines",
+    "aircraft": "Airbus A320-200",
+    "livery": "Transformers 5",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-1342",
+    "airline": "Hainan Airlines",
+    "aircraft": "Boeing B787-9",
+    "livery": "Boao Hope City (博鳌乐城国际医疗旅游先区) sticker",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-1505",
+    "airline": "Hainan Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "UC browser sticker",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-1540",
+    "airline": "Hainan Airlines",
+    "aircraft": "Boeing B787-9",
+    "livery": "Hainan Free Trade Port (海南自由贸易港)",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-5467",
+    "airline": "Hainan Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "Little Door Gods",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-6063",
+    "airline": "Hainan Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "Hainan Free Trade Port (海南自由贸易港)",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-6066",
+    "airline": "Hainan Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "Xinhua Net National Brand Project (新华社民族品牌工程号)",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-6969",
+    "airline": "Hainan Airlines",
+    "aircraft": "Boeing B787-9",
+    "livery": "Qinghualang Wine (青花郎)",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-7616",
+    "airline": "Hainan Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "Boao Hope City (博鳌乐城国际医疗旅游先区) sticker",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-8118",
+    "airline": "Hainan Airlines",
+    "aircraft": "Airbus A330-300",
+    "livery": "China Britain Film Festival (中英电影节) sticker",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-1328",
+    "airline": "Hebei Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "Enjoy Hebei sticker",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-1366",
+    "airline": "Hebei Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "Enjoy Hebei sticker",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-1446",
+    "airline": "Hebei Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "20th Boeing 737 sticker",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-1447",
+    "airline": "Hebei Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "Enjoy Hebei sticker",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-1930",
+    "airline": "Hebei Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "Hebei",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-5753",
+    "airline": "Hebei Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "Enjoy Hebei sticker",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-605T",
+    "airline": "Jiangxi Air",
+    "aircraft": "Comac ARJ21-700",
+    "livery": "Ceramic Art Avenue, City of Jingdezhen (景德镇陶溪川) sticker",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-605V",
+    "airline": "Jiangxi Air",
+    "aircraft": "Comac ARJ21-700",
+    "livery": "Jinggang Mountains (井冈山号)",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-620H",
+    "airline": "Jiangxi Air",
+    "aircraft": "Comac ARJ21-700",
+    "livery": "Yichun (宜春) sticker",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-1115",
+    "airline": "Juneyao Airlines",
+    "aircraft": "Boeing B787-9",
+    "livery": "Chinese Peony (梦旅生花)",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-207N",
+    "airline": "Juneyao Airlines",
+    "aircraft": "Boeing B787-9",
+    "livery": "Chinese Silk Ribbon (丝路飘带)",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-208A",
+    "airline": "Juneyao Airlines",
+    "aircraft": "Boeing B787-9",
+    "livery": "Chinese Silk Ribbon (丝路飘带)",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-209R",
+    "airline": "Juneyao Airlines",
+    "aircraft": "Boeing B787-9",
+    "livery": "Chinese Peony (梦旅生花)",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-20D1",
+    "airline": "Juneyao Airlines",
+    "aircraft": "Boeing B787-9",
+    "livery": "Colourful Petals (绚彩花瓣)",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-20DT",
+    "airline": "Juneyao Airlines",
+    "aircraft": "Boeing B787-9",
+    "livery": "Chinese Peony (梦旅生花) Livery and 100th B787 for China sticker",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-30EQ",
+    "airline": "Juneyao Airlines",
+    "aircraft": "Airbus A321neo",
+    "livery": "Colourful Petals (绚彩花瓣)",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-6717",
+    "airline": "Juneyao Airlines",
+    "aircraft": "Airbus A320-200",
+    "livery": "10 Years Anniversary",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-8068",
+    "airline": "Juneyao Airlines",
+    "aircraft": "Airbus A321-200",
+    "livery": "Chinese Red Peony (红动中国)",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-9068",
+    "airline": "Juneyao Airlines",
+    "aircraft": "Airbus A321-200",
+    "livery": "Chinese Red Peony (红动中国)",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-1106",
+    "airline": "Kunming Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "He Shun",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-1461",
+    "airline": "Kunming Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "Tengchong",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-1507",
+    "airline": "Kunming Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "Dian Lake",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-1991",
+    "airline": "Kunming Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "Honghe Nativeland",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-1673",
+    "airline": "Loong Air",
+    "aircraft": "Airbus A320-200",
+    "livery": "19th Asian Games - Hangzhou 2022",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-1675",
+    "airline": "Loong Air",
+    "aircraft": "Airbus A320-200",
+    "livery": "19th Asian Games - Hangzhou 2022",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-1676",
+    "airline": "Loong Air",
+    "aircraft": "Airbus A320-200",
+    "livery": "19th Asian Games - Hangzhou 2022",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-1866",
+    "airline": "Loong Air",
+    "aircraft": "Airbus A320-200",
+    "livery": "Tide Xiaoshan (潮起萧山)",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-1867",
+    "airline": "Loong Air",
+    "aircraft": "Airbus A320-200",
+    "livery": "Gansu",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-1868",
+    "airline": "Loong Air",
+    "aircraft": "Airbus A320-200",
+    "livery": "Xi'an Hi-Tech Industries Development Zone",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-304Y",
+    "airline": "Loong Air",
+    "aircraft": "Airbus A320neo",
+    "livery": "Lynk&Co sticker",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-30FV",
+    "airline": "Loong Air",
+    "aircraft": "Airbus A320neo",
+    "livery": "50th A320 for Loongair sticker",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-8145",
+    "airline": "Loong Air",
+    "aircraft": "Airbus A320-200",
+    "livery": "19th Asian Games - Hangzhou 2022",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-8146",
+    "airline": "Loong Air",
+    "aircraft": "Airbus A320-200",
+    "livery": "hello 5G",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-8147",
+    "airline": "Loong Air",
+    "aircraft": "Airbus A320-200",
+    "livery": "19th Asian Games - Hangzhou 2022",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-8148",
+    "airline": "Loong Air",
+    "aircraft": "Airbus A320-200",
+    "livery": "19th Asian Games - Hangzhou 2022",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-8593",
+    "airline": "Loong Air",
+    "aircraft": "Airbus A320-200",
+    "livery": "Picturesque Zhejiang",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-8897",
+    "airline": "Loong Air",
+    "aircraft": "Airbus A320-200",
+    "livery": "Picturesque Zhejiang",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-1185",
+    "airline": "Ruili Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "20th sticker",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-1275",
+    "airline": "Shandong Airlines",
+    "aircraft": "Boeing B737-8 MAX",
+    "livery": "Guomei Liquor Group",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-1931",
+    "airline": "Shandong Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "DEEJ",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-1932",
+    "airline": "Shandong Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "DEEJ",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-1982",
+    "airline": "Shandong Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "DEEJ",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-1983",
+    "airline": "Shandong Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "DEEJ",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-1986",
+    "airline": "Shandong Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "Cloud Gate (云门号)",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-1987",
+    "airline": "Shandong Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "DEEJ",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-5119",
+    "airline": "Shandong Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "QQ.com",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-5590",
+    "airline": "Shandong Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "3rd Asian Beach Games",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-5651",
+    "airline": "Shandong Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "Zhongtai Securities",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-5652",
+    "airline": "Shandong Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "Zhongtai Securities",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-5785",
+    "airline": "Shandong Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "DEEJ",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-5786",
+    "airline": "Shandong Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "China Arts Festival",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-5787",
+    "airline": "Shandong Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "Expo 2014",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-5856",
+    "airline": "Shandong Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "International Horticultural Exposition 2014 Qingdao",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-7669",
+    "airline": "Shandong Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "\"100th 737 Next-Generation\" sticker",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-7977",
+    "airline": "Shandong Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "Hospitable Shandong-Jingzhi wine",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-6296",
+    "airline": "Shenzhen Airlines",
+    "aircraft": "Airbus A320",
+    "livery": "Star Alliance",
+    "country": "China",
+    "source": "AirportWebcams Special Liveries"
+  },
+  {
+    "registration": "B-6297",
+    "airline": "Shenzhen Airlines",
+    "aircraft": "Airbus A320",
+    "livery": "Star Alliance",
+    "country": "China",
+    "source": "AirportWebcams Special Liveries"
+  },
+  {
+    "registration": "B-1663",
+    "airline": "Sichuan Airlines",
+    "aircraft": "Airbus A321-200",
+    "livery": "100th Aircraft sticker",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-301D",
+    "airline": "Sichuan Airlines",
+    "aircraft": "Airbus A350-900",
+    "livery": "Panda",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-306N",
+    "airline": "Sichuan Airlines",
+    "aircraft": "Airbus A350-900",
+    "livery": "Panda Route",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-308F",
+    "airline": "Sichuan Airlines",
+    "aircraft": "Airbus A330-300",
+    "livery": "Shuangliu No. 1 sticker",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-5923",
+    "airline": "Sichuan Airlines",
+    "aircraft": "Airbus A330-300",
+    "livery": "Wuliangye",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-5929",
+    "airline": "Sichuan Airlines",
+    "aircraft": "Airbus A330-300",
+    "livery": "Wuliangye",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-5945",
+    "airline": "Sichuan Airlines",
+    "aircraft": "Airbus A330-300",
+    "livery": "31st Summer Universiade 2021 Chengdu",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-5960",
+    "airline": "Sichuan Airlines",
+    "aircraft": "Airbus A330-300",
+    "livery": "Changhong",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-6388",
+    "airline": "Sichuan Airlines",
+    "aircraft": "Airbus A320-200",
+    "livery": "Chinese Dragon",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-6517",
+    "airline": "Sichuan Airlines",
+    "aircraft": "Airbus A330-200",
+    "livery": "Wuliangye",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-6719",
+    "airline": "Sichuan Airlines",
+    "aircraft": "Airbus A320-200",
+    "livery": "Yunnan",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-8949",
+    "airline": "Sichuan Airlines",
+    "aircraft": "Airbus A320neo",
+    "livery": "Sichuan, more than pandas sticker",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-1807",
+    "airline": "Spring Airlines",
+    "aircraft": "Airbus A320-200",
+    "livery": "FairLink (世纪空联)",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-30D6",
+    "airline": "Spring Airlines",
+    "aircraft": "Airbus A320neo",
+    "livery": "100th for Spring Airlines",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-6902",
+    "airline": "Spring Airlines",
+    "aircraft": "Airbus A320-200",
+    "livery": "Booking.com",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-8817",
+    "airline": "Spring Airlines",
+    "aircraft": "Airbus A320-200",
+    "livery": "板城龙印 sticker",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-2676",
+    "airline": "Tianjin Air Cargo",
+    "aircraft": "Boeing B737-800F",
+    "livery": "ZTO Express (中通快递)",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-1031",
+    "airline": "Tianjin Airlines",
+    "aircraft": "Airbus A320-200",
+    "livery": "quan yang quan",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-302X",
+    "airline": "Tianjin Airlines",
+    "aircraft": "Airbus A321-200",
+    "livery": "100th Aircraft",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-3150",
+    "airline": "Tianjin Airlines",
+    "aircraft": "Embraer ERJ190LR",
+    "livery": "Erke, Always with you - 24hr Hotline",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-3155",
+    "airline": "Tianjin Airlines",
+    "aircraft": "Embraer ERJ190LR",
+    "livery": "\"Bio-E Yibo Wang\" sticker",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-3162",
+    "airline": "Tianjin Airlines",
+    "aircraft": "Embraer ERJ190LR",
+    "livery": "Liupanshui",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-6789",
+    "airline": "Tianjin Airlines",
+    "aircraft": "Airbus A320-200",
+    "livery": "Yujiapu",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-6837",
+    "airline": "Tianjin Airlines",
+    "aircraft": "Airbus A320-200",
+    "livery": "Xiyuan",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-6865",
+    "airline": "Tianjin Airlines",
+    "aircraft": "Airbus A320-200",
+    "livery": "9th University Game of PRC",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-8389",
+    "airline": "Tianjin Airlines",
+    "aircraft": "Airbus A321-200",
+    "livery": "National Games of China - Tianjin 2017",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-9963",
+    "airline": "Tianjin Airlines",
+    "aircraft": "Airbus A320-200",
+    "livery": "5th East Asian Games",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-9983",
+    "airline": "Tianjin Airlines",
+    "aircraft": "Airbus A320-200",
+    "livery": "Tianjin Tour",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-306S",
+    "airline": "Tibet Airlines",
+    "aircraft": "Airbus A319-100",
+    "livery": "\"Lhoka, Cradle of Tibet\" sticker",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-1568",
+    "airline": "Urumqi Air",
+    "aircraft": "Boeing 737-800",
+    "livery": "U-FLY Alliance",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-6268",
+    "airline": "Urumqi Air",
+    "aircraft": "Boeing 737-800",
+    "livery": "Kanas (喀纳斯号)",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-1356",
+    "airline": "Xiamen Airlines",
+    "aircraft": "Boeing 787-9",
+    "livery": "United Dream",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-20CP",
+    "airline": "Xiamen Airlines",
+    "aircraft": "Boeing 737 MAX 8",
+    "livery": "United Dream",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-5159",
+    "airline": "Xiamen Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "Skyteam",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-5302",
+    "airline": "Xiamen Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "Skyteam",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-5633",
+    "airline": "Xiamen Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "Skyteam",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-5656",
+    "airline": "Xiamen Airlines",
+    "aircraft": "Boeing 737-800",
+    "livery": "Beijing Daxing",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-5688",
+    "airline": "Xiamen Airlines",
+    "aircraft": "Boeing 737-800",
+    "livery": "100th Boeing",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-7178",
+    "airline": "Xiamen Airlines",
+    "aircraft": "Boeing 737-800",
+    "livery": "8,888th 737 Sticker Sticker",
+    "country": "China",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-HLU",
+    "airline": "Cathay Pacific",
+    "aircraft": "Airbus A330-300",
+    "livery": "Oneworld",
+    "country": "China/Hong Kong",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-HNK",
+    "airline": "Cathay Pacific",
+    "aircraft": "Boeing B777-300",
+    "livery": "The Spirit of Hongkong",
+    "country": "China/Hong Kong",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-KPD",
+    "airline": "Cathay Pacific",
+    "aircraft": "Boeing B777-300ER",
+    "livery": "Oneworld",
+    "country": "China/Hong Kong",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-KQI",
+    "airline": "Cathay Pacific",
+    "aircraft": "Boeing B777-300ER",
+    "livery": "Oneworld",
+    "country": "China/Hong Kong",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-KQL",
+    "airline": "Cathay Pacific",
+    "aircraft": "Boeing B777-300ER",
+    "livery": "Oneworld",
+    "country": "China/Hong Kong",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-KQM",
+    "airline": "Cathay Pacific",
+    "aircraft": "Boeing B777-300ER",
+    "livery": "Oneworld",
+    "country": "China/Hong Kong",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-KQN",
+    "airline": "Cathay Pacific",
+    "aircraft": "Boeing B777-300ER",
+    "livery": "Oneworld",
+    "country": "China/Hong Kong",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-LCB",
+    "airline": "Hong Kong Express",
+    "aircraft": "Airbus A320-200",
+    "livery": "Kagawa (Sanuki Udon and Ritsurin Garden)",
+    "country": "China/Hong Kong",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-LEJ",
+    "airline": "Hong Kong Express",
+    "aircraft": "Airbus A321-200",
+    "livery": "reward-U",
+    "country": "China/Hong Kong",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-MBB",
+    "airline": "Air Macau",
+    "aircraft": "Airbus A321-200",
+    "livery": "Macao - Creative City of Gastronomy",
+    "country": "China/Macau",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-MBM",
+    "airline": "Air Macau",
+    "aircraft": "Airbus A321-200",
+    "livery": "Macau Welcomes You",
+    "country": "China/Macau",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-MBQ",
+    "airline": "Air Macau",
+    "aircraft": "Airbus A321neo",
+    "livery": "Macau Welcomes You",
+    "country": "China/Macau",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-MCI",
+    "airline": "Air Macau",
+    "aircraft": "Airbus A320-200",
+    "livery": "The historic centre of Macao",
+    "country": "China/Macau",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-18006",
+    "airline": "China Airlines",
+    "aircraft": "Boeing B777-300ER",
+    "livery": "60th Anniversary sticker",
+    "country": "China/Taiwan",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-18007",
+    "airline": "China Airlines",
+    "aircraft": "Boeing B777-300ER",
+    "livery": "Boeing",
+    "country": "China/Taiwan",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-18311",
+    "airline": "China Airlines",
+    "aircraft": "Airbus A330-300",
+    "livery": "Skyteam",
+    "country": "China/Taiwan",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-18317",
+    "airline": "China Airlines",
+    "aircraft": "Airbus A330-300",
+    "livery": "60th Anniversary sticker",
+    "country": "China/Taiwan",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-18657",
+    "airline": "China Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "Buddy Bears (三熊友達)",
+    "country": "China/Taiwan",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-18659",
+    "airline": "China Airlines",
+    "aircraft": "Boeing B737-800",
+    "livery": "60th Anniversary sticker",
+    "country": "China/Taiwan",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-18701",
+    "airline": "China Airlines",
+    "aircraft": "Boeing B747-400F",
+    "livery": "60th Anniversary sticker",
+    "country": "China/Taiwan",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-18901",
+    "airline": "China Airlines",
+    "aircraft": "Airbus A350-900",
+    "livery": "Mikado Pheasant / Syrmaticus Mikado (帝雉號)",
+    "country": "China/Taiwan",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-18908",
+    "airline": "China Airlines",
+    "aircraft": "Airbus A350-900",
+    "livery": "Taiwan Blue Magpie / Urocissa Caerulea (藍鵲號)",
+    "country": "China/Taiwan",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-18917",
+    "airline": "China Airlines",
+    "aircraft": "Airbus A350-900",
+    "livery": "60th Anniversary sticker",
+    "country": "China/Taiwan",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-18918",
+    "airline": "China Airlines",
+    "aircraft": "Airbus A350-900",
+    "livery": "Carbon Fibre / Airbus",
+    "country": "China/Taiwan",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-16205",
+    "airline": "EVA Airways",
+    "aircraft": "Airbus A321-200",
+    "livery": "Gudetama",
+    "country": "China/Taiwan",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-16206",
+    "airline": "EVA Airways",
+    "aircraft": "Airbus A321-200",
+    "livery": "Star Alliance",
+    "country": "China/Taiwan",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-16207",
+    "airline": "EVA Airways",
+    "aircraft": "Airbus A321-200",
+    "livery": "Hello Kitty",
+    "country": "China/Taiwan",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-16331",
+    "airline": "EVA Airways",
+    "aircraft": "Airbus A330-300",
+    "livery": "Bad Badtz-Maru",
+    "country": "China/Taiwan",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-16332",
+    "airline": "EVA Airways",
+    "aircraft": "Airbus A330-300",
+    "livery": "Sanrio Characters Joyful Dream",
+    "country": "China/Taiwan",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-16333",
+    "airline": "EVA Airways",
+    "aircraft": "Airbus A330-300",
+    "livery": "Hello Kitty - Sanrio Characters",
+    "country": "China/Taiwan",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-16703",
+    "airline": "EVA Airways",
+    "aircraft": "Boeing B777-300ER",
+    "livery": "Hello Kitty Sanrio Family",
+    "country": "China/Taiwan",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-16715",
+    "airline": "EVA Airways",
+    "aircraft": "Boeing B777-300ER",
+    "livery": "Star Alliance",
+    "country": "China/Taiwan",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-16722",
+    "airline": "EVA Airways",
+    "aircraft": "Boeing B777-300ER",
+    "livery": "Hello Kitty Shining Star",
+    "country": "China/Taiwan",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-17001",
+    "airline": "UNI Airways",
+    "aircraft": "ATR 72-600",
+    "livery": "Bad Badtz-Maru",
+    "country": "China/Taiwan",
+    "source": "Spotterlog Special Liveries"
+  },
+  {
+    "registration": "B-17002",
+    "airline": "UNI Airways",
+    "aircraft": "ATR 72-600",
+    "livery": "Bad Badtz-Maru",
+    "country": "China/Taiwan",
+    "source": "Spotterlog Special Liveries"
+  }
 ]
