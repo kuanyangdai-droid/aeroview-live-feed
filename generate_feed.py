@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
-AeroView Hangzhou special livery schedule scanner.
+AeroView Hangzhou special livery live scanner.
 
 The feed is intentionally narrow:
 - one airport, Hangzhou Xiaoshan (HGH) by default
-- today's scheduled arrivals and departures
+- today's live arrivals and departures
 - only rows where AirLabs returns a concrete aircraft registration
 - registrations are matched against special_liveries.json
 
@@ -33,7 +33,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Tuple
 
-AIRLABS_SCHEDULES_ENDPOINT = "https://airlabs.co/api/v9/schedules"
+AIRLABS_FLIGHTS_ENDPOINT = "https://airlabs.co/api/v9/flights"
 DEFAULT_TRACK_AIRPORT = "HGH"
 DEFAULT_OUTPUT_PATH = Path("public/special-livery-live.json")
 DEFAULT_META_PATH = Path("public/feed-meta.json")
@@ -217,7 +217,7 @@ def load_special_liveries(path: Path = SPECIAL_LIVERIES_PATH) -> Dict[str, Dict[
 def request_airlabs(api_key: str, params: Dict[str, Any]) -> Tuple[List[Dict[str, Any]], Optional[str]]:
     query = dict(params)
     query["api_key"] = api_key
-    url = AIRLABS_SCHEDULES_ENDPOINT + "?" + urllib.parse.urlencode(query)
+    url = AIRLABS_FLIGHTS_ENDPOINT + "?" + urllib.parse.urlencode(query)
     request = urllib.request.Request(url, headers={"User-Agent": "AeroViewScheduleFeed/1.0"})
 
     try:
@@ -235,11 +235,11 @@ def request_airlabs(api_key: str, params: Dict[str, Any]) -> Tuple[List[Dict[str
     return [record for record in records if isinstance(record, dict)], None
 
 
-def fetch_hangzhou_schedules(api_key: str, airport: str, schedule_date: str) -> Tuple[List[Dict[str, Any]], List[str]]:
+def fetch_hangzhou_live_flights(api_key: str, airport: str) -> Tuple[List[Dict[str, Any]], List[str]]:
     all_rows: List[Dict[str, Any]] = []
     errors: List[str] = []
     for direction, field in (("arrival", "arr_iata"), ("departure", "dep_iata")):
-        params = {field: airport, "limit": SCHEDULE_LIMIT}
+        params = {field: airport}
         records, error = request_airlabs(api_key, params)
         if error:
             errors.append(f"{field}={airport}: {error}")
@@ -273,38 +273,38 @@ def relevant_time(schedule: Dict[str, Any], direction: str) -> Any:
     return pick_first(schedule, ARR_TIME_KEYS) or pick_first(schedule, DEP_TIME_KEYS)
 
 
-def convert_schedule_record(
-    schedule: Dict[str, Any],
+def convert_live_record(
+    flight: Dict[str, Any],
     livery: Dict[str, Any],
     airport: str,
     schedule_date: str,
     generated_at: str,
 ) -> Optional[Dict[str, Any]]:
-    direction = row_direction(schedule, airport)
-    dep = normalize_iata(pick_first(schedule, ["dep_iata", "dep_icao"]))
-    arr = normalize_iata(pick_first(schedule, ["arr_iata", "arr_icao"]))
+    direction = row_direction(flight, airport)
+    dep = normalize_iata(pick_first(flight, ["dep_iata", "dep_icao"]))
+    arr = normalize_iata(pick_first(flight, ["arr_iata", "arr_icao"]))
     if direction == "arrival" and arr != airport:
         return None
     if direction == "departure" and dep != airport:
         return None
 
-    scheduled_raw = relevant_time(schedule, direction)
+    scheduled_raw = relevant_time(flight, direction)
     scheduled_iso = iso_or_empty(scheduled_raw)
     if scheduled_iso and local_date_key(scheduled_iso) != schedule_date:
         return None
 
-    registration = normalize_registration(pick_first(schedule, REGISTRATION_KEYS))
+    registration = normalize_registration(pick_first(flight, REGISTRATION_KEYS))
     if not registration:
         return None
 
     category, category_label = livery_category(livery.get("livery", ""))
-    status = str(pick_first(schedule, ["status"], "scheduled") or "scheduled").strip().lower() or "scheduled"
-    flight = str(pick_first(schedule, FLIGHT_KEYS, "UNKNOWN") or "UNKNOWN").upper()
+    status = str(pick_first(flight, ["status"], "en-route") or "en-route").strip().lower() or "en-route"
+    flight_number = str(pick_first(flight, FLIGHT_KEYS, "UNKNOWN") or "UNKNOWN").upper()
 
     return {
-        "flight": flight,
-        "airline": pick_first(schedule, AIRLINE_KEYS, livery.get("airline", "")) or livery.get("airline", ""),
-        "aircraft": pick_first(schedule, AIRCRAFT_KEYS, livery.get("aircraft", "")) or livery.get("aircraft", ""),
+        "flight": flight_number,
+        "airline": pick_first(flight, AIRLINE_KEYS, livery.get("airline", "")) or livery.get("airline", ""),
+        "aircraft": pick_first(flight, AIRCRAFT_KEYS, livery.get("aircraft", "")) or livery.get("aircraft", ""),
         "registration": registration,
         "livery": livery.get("livery", "Special Livery"),
         "livery_category": category,
@@ -316,13 +316,13 @@ def convert_schedule_record(
         "destination": arr,
         "destination_airport": airport_info(arr),
         "destination_country": airport_info(arr).get("country", ""),
-        "scheduled_departure": iso_or_empty(pick_first(schedule, DEP_TIME_KEYS)),
-        "scheduled_arrival": iso_or_empty(pick_first(schedule, ARR_TIME_KEYS)),
+        "scheduled_departure": iso_or_empty(pick_first(flight, DEP_TIME_KEYS)),
+        "scheduled_arrival": iso_or_empty(pick_first(flight, ARR_TIME_KEYS)),
         "scheduled_time": scheduled_iso,
         "schedule_date": schedule_date,
         "status": status,
         "updated": generated_at,
-        "source": "AirLabs Schedules + special_liveries.json",
+        "source": "AirLabs Real-Time Flights + special_liveries.json",
     }
 
 
@@ -363,7 +363,7 @@ def merge_same_day_previous(
 
 
 def build_feed(
-    schedules: List[Dict[str, Any]],
+    flights: List[Dict[str, Any]],
     special_liveries: Dict[str, Dict[str, Any]],
     airport: str,
     schedule_date: str,
@@ -373,11 +373,11 @@ def build_feed(
     generated_at = generated_at or utc_now_iso()
     rows: List[Dict[str, Any]] = []
 
-    for schedule in schedules:
-        reg = normalize_registration(pick_first(schedule, REGISTRATION_KEYS))
+    for flight in flights:
+        reg = normalize_registration(pick_first(flight, REGISTRATION_KEYS))
         if not reg or reg not in special_liveries:
             continue
-        row = convert_schedule_record(schedule, special_liveries[reg], airport, schedule_date, generated_at)
+        row = convert_live_record(flight, special_liveries[reg], airport, schedule_date, generated_at)
         if row:
             rows.append(row)
 
@@ -395,7 +395,7 @@ def build_feed(
 
 def demo_feed(schedule_date: str) -> List[Dict[str, Any]]:
     now = utc_now_iso()
-    demo_schedules = [
+    demo_flights = [
         {
             "_query_direction": "arrival",
             "flight_iata": "CA1703",
@@ -422,7 +422,7 @@ def demo_feed(schedule_date: str) -> List[Dict[str, Any]]:
         },
     ]
     liveries = load_special_liveries()
-    return build_feed(demo_schedules, liveries, "HGH", schedule_date, generated_at=now)
+    return build_feed(demo_flights, liveries, "HGH", schedule_date, generated_at=now)
 
 
 def write_json(path: Path, payload: Any) -> None:
@@ -495,9 +495,20 @@ def main() -> int:
         previous_feed, previous_feed_error = load_previous_feed(output_path)
         if previous_feed_error:
             errors.append(previous_feed_error)
-        schedules, fetch_errors = fetch_hangzhou_schedules(api_key, track_airport, schedule_date)
+        flights, fetch_errors = fetch_hangzhou_live_flights(api_key, track_airport)
         errors.extend(fetch_errors)
-        feed = build_feed(schedules, special_liveries, track_airport, schedule_date, previous_feed, generated_at)
+        feed = build_feed(flights, special_liveries, track_airport, schedule_date, previous_feed, generated_at)
+        live_rows_scanned = len(flights)
+        live_rows_with_registration = sum(1 for row in flights if normalize_registration(pick_first(row, REGISTRATION_KEYS)))
+        live_registration_matches = sum(
+            1
+            for row in flights
+            if normalize_registration(pick_first(row, REGISTRATION_KEYS)) in special_liveries
+        )
+    if demo_mode:
+        live_rows_scanned = len(feed)
+        live_rows_with_registration = len(feed)
+        live_registration_matches = len(feed)
 
     meta = {
         "generated_at": generated_at,
@@ -508,9 +519,12 @@ def main() -> int:
         "arrival_count": sum(1 for row in feed if row.get("direction") == "arrival"),
         "departure_count": sum(1 for row in feed if row.get("direction") == "departure"),
         "special_livery_count": len(special_liveries),
-        "mode": "demo" if demo_mode else "schedule",
+        "mode": "demo" if demo_mode else "live",
+        "live_rows_scanned": live_rows_scanned,
+        "live_rows_with_registration": live_rows_with_registration,
+        "live_registration_matches": live_registration_matches,
         "errors": errors[:50],
-        "notes": "Hangzhou schedule scanner. Only schedule rows with an AirLabs-returned aircraft registration can be matched.",
+        "notes": "Hangzhou live scanner. AirLabs schedules do not expose registrations reliably, so live flights with returned registration are matched and retained for the local day.",
     }
 
     write_json(output_path, feed)

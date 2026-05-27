@@ -3,7 +3,7 @@ main = "aeroview-workflow-dispatcher.js"
 compatibility_date = "2026-05-26"
 
 [triggers]
-crons = ["0 0 * * *"]
+crons = ["0 */2 * * *"]
 
 [vars]
 GITHUB_OWNER = "kuanyangdai-droid"
