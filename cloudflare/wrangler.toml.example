@@ -3,7 +3,9 @@ main = "aeroview-workflow-dispatcher.js"
 compatibility_date = "2026-05-26"
 
 [triggers]
-crons = ["0 */2 * * *"]
+# Paused until the feed uses a schedule source that includes aircraft registrations.
+# Enable this after the data source is fixed:
+# crons = ["0 0 * * *"]
 
 [vars]
 GITHUB_OWNER = "kuanyangdai-droid"

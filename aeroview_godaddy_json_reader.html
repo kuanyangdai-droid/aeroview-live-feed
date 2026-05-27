@@ -414,7 +414,7 @@ Paste this whole block into a GoDaddy Custom HTML section.
     const isArrival = item.direction === "arrival";
     const directionLabel = isArrival ? "Arrival to HGH" : "Departure from HGH";
     const directionClass = isArrival ? " av-arrival" : "";
-    const scheduled = item.scheduled_time || (isArrival ? item.scheduled_arrival : item.scheduled_departure) || item.updated;
+    const scheduled = item.scheduled_time || (isArrival ? item.scheduled_arrival : item.scheduled_departure);
     return `
       <div class="av-row">
         <div>
@@ -432,7 +432,7 @@ Paste this whole block into a GoDaddy Custom HTML section.
           <div class="av-small">${esc(airportLabel(item, "origin"))} → ${esc(airportLabel(item, "destination"))}</div>
         </div>
         <div>
-          <div class="av-label">Last Seen</div>
+          <div class="av-label">Scheduled</div>
           <div class="av-main">${formatTime(scheduled)} CST</div>
           <div class="av-small">${esc(item.status || "scheduled")}</div>
         </div>
@@ -446,7 +446,7 @@ Paste this whole block into a GoDaddy Custom HTML section.
           <div>
             <div class="av-kicker">AeroView HGH Schedule</div>
             <h2 class="av-title">HANGZHOU SPECIAL LIVERY LIST</h2>
-            <p class="av-subtitle">本日杭州进出港实时航班中，已给出注册号并命中特殊涂装库的航班</p>
+            <p class="av-subtitle">本日杭州进出港计划航班中，已给出注册号并命中特殊涂装库的航班</p>
           </div>
           <div class="av-time">${formatNow()}</div>
         </div>
@@ -466,16 +466,16 @@ Paste this whole block into a GoDaddy Custom HTML section.
   }
 
   function renderLoading() {
-    shell("Loading Hangzhou live feed...", "av-warn", `<div class="av-empty"><strong>Loading live feed</strong><span>正在读取公开 JSON 数据。</span></div>`, "GitHub Pages JSON mode", "Auto refresh enabled");
+    shell("Loading Hangzhou schedule feed...", "av-warn", `<div class="av-empty"><strong>Loading schedule feed</strong><span>正在读取公开 JSON 数据。</span></div>`, "GitHub Pages JSON mode", "Auto refresh enabled");
   }
 
   function renderError(message) {
-    shell("Live feed unavailable", "av-error", `<div class="av-empty"><strong>Feed loading failed</strong><span>${esc(message)}</span></div>`, "请检查 GitHub Pages feed 地址", "Refresh: " + CONFIG.REFRESH_MINUTES + " min");
+    shell("Schedule feed unavailable", "av-error", `<div class="av-empty"><strong>Feed loading failed</strong><span>${esc(message)}</span></div>`, "请检查 GitHub Pages feed 地址", "Refresh: " + CONFIG.REFRESH_MINUTES + " min");
   }
 
   function renderEmpty(meta) {
-    const generated = meta && meta.generated_at ? "Feed generated: " + formatTime(meta.generated_at) + " CST" : "No matched live rows";
-    shell("Live feed loaded · No Hangzhou special livery match", "av-warn", `<div class="av-empty"><strong>No matched aircraft right now</strong><span>当前杭州进出港实时数据中暂未发现已给出注册号且命中特殊涂装库的航班。</span></div>`, generated, "Live registrations only");
+    const generated = meta && meta.generated_at ? "Feed generated: " + formatTime(meta.generated_at) + " CST" : "No matched schedule rows";
+    shell("Schedule loaded · No registration data", "av-warn", `<div class="av-empty"><strong>No registration data in schedule</strong><span>当前计划源没有返回注册号，所以暂时无法按特殊涂装库匹配杭州进出港航班。</span></div>`, generated, "Only schedules with registration can match");
   }
 
   function renderFeed(items, meta) {
@@ -485,7 +485,7 @@ Paste this whole block into a GoDaddy Custom HTML section.
     const dateText = meta && meta.schedule_date ? "Schedule date: " + meta.schedule_date : "Hangzhou HGH";
     const list = filtered.length ? `<div class="av-list">${rows}</div>` : `<div class="av-empty"><strong>No aircraft in this filter</strong><span>Try another direction, airline, livery, origin, or arrival filter.</span></div>`;
     const body = summaryBar(items, filtered) + filterControls(items) + list;
-    shell("Live feed loaded · " + filtered.length + " of " + items.length + " matches shown", "", body, generated, dateText);
+    shell("Schedule feed loaded · " + filtered.length + " of " + items.length + " matches shown", "", body, generated, dateText);
     bindFilters(items, meta);
   }
 

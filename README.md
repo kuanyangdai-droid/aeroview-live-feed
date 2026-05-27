@@ -1,28 +1,30 @@
-# AeroView Hangzhou Special Livery Live Feed
+# AeroView Hangzhou Special Livery Schedule
 
-本仓库生成一个公开 JSON feed，用来展示 **杭州萧山机场 HGH 当日进出港实时航班里的特殊涂装飞机**。
+本仓库生成一个公开 JSON feed，用来展示 **杭州萧山机场 HGH 当日进出港计划航班里的特殊涂装飞机**。
 
-后端通过 GitHub Actions 调用 AirLabs Real-Time Flights API，读取杭州到港和离港实时窗口。脚本只保留 API 已经给出具体飞机注册号的航班，再用注册号与 `special_liveries.json` 特殊涂装库匹配。GoDaddy 页面只读取 GitHub Pages 上的静态 JSON，不直接访问 AirLabs，也不会暴露 AirLabs API Key。
+后端通过 GitHub Actions 调用 AirLabs Schedules API，读取杭州到港和离港计划窗口。脚本只保留 API 已经给出具体飞机注册号的计划航班，再用注册号与 `special_liveries.json` 特殊涂装库匹配。GoDaddy 页面只读取 GitHub Pages 上的静态 JSON，不直接访问 AirLabs，也不会暴露 AirLabs API Key。
 
 ## 当前逻辑
 
 - 只追踪一个机场：`HGH`，杭州萧山。
-- 只看当天实时窗口：到达杭州或从杭州离场。
-- 只匹配有注册号的实时记录：例如 `B-1932`。
+- 只看当天计划航班：到达杭州或从杭州离场。
+- 只匹配有注册号的计划记录：例如 `B-5497`。
 - 用 `special_liveries.json` 判断是否属于特殊涂装。
 - 前端以列表显示，并支持方向、国家、航司、涂装类型、起飞地、到达地筛选。
 
 ## 重要限制
 
-AirLabs Schedules API 对 HGH 会返回计划航班，但不稳定提供注册号；实际测试中 `/api/v9/schedules` 和 `/api/v9/flight` 多数返回 `reg_number: null`。因此当前版本改用 `/api/v9/flights` 实时接口，因为它会返回当前进出港航班的注册号。
+AirLabs 计划表接口并不保证每一条计划航班都会返回注册号。没有注册号的计划无法和特殊涂装库对比，所以会被跳过。
 
-实时接口不是全天计划表。脚本会合并同一天上一版 feed，把当天已经发现过的好货累计保留。第二天会按新的 `schedule_date` 重新开始，不会保留前一天记录。
+2026-05-27 复查结果：`arr_iata=HGH` 返回 100 条计划、`dep_iata=HGH` 返回 100 条计划，但注册号字段返回 0 条；抽查单航班详情时 `reg_number` 也是 `null`。因此当前 AirLabs 计划源无法完成“从每日计划表按注册号找特殊涂装”的目标，需要接入一个实际提供当日计划注册号的数据源后再恢复自动刷新。
+
+AirLabs schedules endpoint 是计划窗口，不是一次返回全天完整计划。脚本会合并同一天上一版 feed 的结果，把当天已经发现过的好货累计保留。第二天会按新的 `schedule_date` 重新开始，不会保留前一天记录。
 
 ## 文件结构
 
 | 文件 | 用途 |
 |---|---|
-| `generate_feed.py` | 后端生成脚本；读取 HGH 实时进出港，匹配特殊涂装注册号，输出 JSON。 |
+| `generate_feed.py` | 后端生成脚本；读取 HGH 当日计划，匹配特殊涂装注册号，输出 JSON。 |
 | `special_liveries.json` | 特殊涂装飞机注册号库。 |
 | `.github/workflows/update-feed.yml` | GitHub Actions workflow；被外部云端定时器触发后生成 feed 并提交到仓库根目录。 |
 | `cloudflare/` | Cloudflare Workers Cron Trigger 模板，用作外部云端定时器。 |
@@ -43,7 +45,7 @@ https://kuanyangdai-droid.github.io/aeroview-live-feed/feed-meta.json
 
 ## Workflow
 
-`.github/workflows/update-feed.yml` 每次运行只生成杭州实时 feed：
+`.github/workflows/update-feed.yml` 每次运行只生成杭州计划 feed：
 
 ```yaml
 TRACK_AIRPORT: "HGH"
@@ -51,15 +53,17 @@ OUTPUT_PATH: "special-livery-live.json"
 META_PATH: "feed-meta.json"
 ```
 
-仓库不使用 GitHub Actions `schedule` 定时。定时由 Cloudflare Workers Cron 触发，GitHub Actions 只保留 `workflow_dispatch` 入口，方便被外部平台或手动操作触发。
+仓库不使用 GitHub Actions `schedule` 定时。定时由外部云端服务触发，GitHub Actions 只保留 `workflow_dispatch` 入口，方便被外部平台或手动操作触发。
 
-推荐 Cron：
+推荐的外部云端定时器是 Cloudflare Workers Cron Trigger。`cloudflare/` 目录提供了 Worker 模板；在接入带注册号的计划源后，可开启每天 00:00 UTC，也就是北京时间 08:00，调用 GitHub workflow dispatch API。
 
-```text
-0 */2 * * *
+Cloudflare 侧需要配置一个 secret：
+
+```bash
+wrangler secret put GITHUB_TOKEN
 ```
 
-这会每 2 小时触发一次。每次只调用 AirLabs 两次：`arr_iata=HGH` 和 `dep_iata=HGH`。
+这个 token 只需要能触发本仓库 Actions workflow，建议使用 fine-grained GitHub token，并仅授权 `kuanyangdai-droid/aeroview-live-feed` 的 Actions 写权限。不要把 token 写入仓库。
 
 为了减少 GitHub Pages 官方部署 action 下载失败的影响，当前发布方式是让 workflow 直接更新并提交仓库根目录的 `special-livery-live.json` 和 `feed-meta.json`，GitHub Pages 从 `main` 分支根目录提供静态文件。
 
@@ -80,16 +84,16 @@ META_URL: "https://kuanyangdai-droid.github.io/aeroview-live-feed/feed-meta.json
 
 ```json
 {
-  "registration": "B-1932",
-  "airline": "Shandong Airlines",
+  "registration": "B-5497",
+  "airline": "Air China",
   "aircraft": "Boeing B737-800",
-  "livery": "DEEJ",
+  "livery": "Expo 2019 Beijing",
   "country": "China",
   "source": "Spotterlog Special Liveries"
 }
 ```
 
-新增特殊涂装飞机时，把注册号加入这个文件即可。脚本会自动用注册号匹配杭州实时进出港航班。
+新增特殊涂装飞机时，把注册号加入这个文件即可。脚本会自动用注册号匹配杭州当日计划航班。
 
 ## 本地测试
 
@@ -108,7 +112,7 @@ AIRLABS_API_KEY="你的Key" TRACK_AIRPORT=HGH python generate_feed.py
 指定日期：
 
 ```bash
-AIRLABS_API_KEY="你的Key" TRACK_AIRPORT=HGH SCHEDULE_DATE=2026-05-27 python generate_feed.py
+AIRLABS_API_KEY="你的Key" TRACK_AIRPORT=HGH SCHEDULE_DATE=2026-05-26 python generate_feed.py
 ```
 
 ## 上线检查
@@ -117,5 +121,5 @@ AIRLABS_API_KEY="你的Key" TRACK_AIRPORT=HGH SCHEDULE_DATE=2026-05-27 python ge
 |---|---|
 | GitHub Actions | `Update AeroView Hangzhou Schedule Feed` 运行成功。 |
 | Feed | `special-livery-live.json` 和 `feed-meta.json` 可打开。 |
-| GoDaddy 模块 | 显示杭州当日累计匹配列表，并可按方向、航司、涂装、起飞地、到达地筛选。 |
-| 云端定时器 | Cloudflare Workers Cron 每 2 小时触发 `workflow_dispatch`。 |
+| GoDaddy 模块 | 显示杭州当日匹配列表，并可按方向、航司、涂装、起飞地、到达地筛选。 |
+| 云端定时器 | 当前暂停；接入带注册号的计划源后再开启每天北京时间 08:00 触发 `workflow_dispatch`。 |
